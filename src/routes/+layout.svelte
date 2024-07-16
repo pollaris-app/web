@@ -2,6 +2,7 @@
 	import { Fragment } from '@master/css.svelte';
 	import { onMount } from 'svelte';
 	import '$styles/global.css';
+	import '$styles/fonts.css';
 
 	let CSSRuntimeProvider = $state(Fragment as any);
 
