@@ -8,64 +8,65 @@ export default {
 
 		// COLORS
 		base: {
-			'100': 'var(--base-100)',
-			'200': 'var(--base-200)',
-			'300': 'var(--base-300)'
+			'50': 'hsl(var(--base-50))',
+			'100': 'hsl(var(--base-100))',
+			'200': 'hsl(var(--base-200))',
+			'300': 'hsl(var(--base-300))'
 		},
 		primary: {
-			'': 'var(--primary)',
-			foreground: 'var(--primary-foreground)',
+			'': 'hsl(var(--primary)',
+			foreground: 'hsl(var(--primary-foreground))',
 			hover: {
-				'': 'var(--primary-hover)',
-				foreground: 'var(--primary-hover-foreground)'
+				'': 'hsl(var(--primary-hover))',
+				foreground: 'hsl(var(--primary-hover-foreground))'
 			}
 		},
 		secondary: {
-			'': 'var(--secondary)',
-			foreground: 'var(--secondary-foreground)',
+			'': 'hsl(var(--secondary))',
+			foreground: 'hsl(var(--secondary-foreground))',
 			hover: {
-				'': 'var(--secondary-hover)',
-				foreground: 'var(--secondary-hover-foreground)'
+				'': 'hsl(var(--secondary-hover))',
+				foreground: 'hsl(var(--secondary-hover-foreground))'
 			}
 		},
 		accent: {
-			'': 'var(--accent)',
-			foreground: 'var(--accent-foreground)',
+			'': 'hsl(var(--accent))',
+			foreground: 'hsl(var(--accent-foreground))',
 			hover: {
-				'': 'var(--accent-hover)',
-				foreground: 'var(--accent-hover-foreground)'
+				'': 'hsl(var(--accent-hover))',
+				foreground: 'hsl(var(--accent-hover-foreground))'
 			}
 		},
 		success: {
-			'': 'var(--success)',
-			foreground: 'var(--success-foreground)',
+			'': 'hsl(var(--success))',
+			foreground: 'hsl(var(--success-foreground))',
 			hover: {
-				'': 'var(--success-hover)',
-				foreground: 'var(--success-hover-foreground)'
+				'': 'hsl(var(--success-hover))',
+				foreground: 'hsl(var(--success-hover-foreground))'
 			}
 		},
 		warning: {
-			'': 'var(--warning)',
-			foreground: 'var(--warning-foreground)',
+			'': 'hsl(var(--warning))',
+			foreground: 'hsl(var(--warning-foreground))',
 			hover: {
-				'': 'var(--warning-hover)',
-				foreground: 'var(--warning-hover-foreground)'
+				'': 'hsl(var(--warning-hover))',
+				foreground: 'hsl(var(--warning-hover-foreground))'
 			}
 		},
 		error: {
-			'': 'var(--error)',
-			foreground: 'var(--error-foreground)',
+			'': 'hsl(var(--error))',
+			foreground: 'hsl(var(--error-foreground))',
 			hover: {
-				'': 'var(--error-hover)',
-				foreground: 'var(--error-hover-foreground)'
+				'': 'hsl(var(--error-hover))',
+				foreground: 'hsl(var(--error-hover-foreground))'
 			}
 		},
 		info: {
-			'': 'var(--info)',
-			foreground: 'var(--info-foreground)',
+			'': 'hsl(var(--info))',
+			foreground: 'hsl(var(--info-foreground))',
 			hover: {
-				'': 'var(--info-hover)',
-				foreground: 'var(--info-hover-foreground)'
+				'': 'hsl(var(--info-hover))',
+				foreground: 'hsl(var(--info-hover-foreground))'
 			}
 		}
 	}
