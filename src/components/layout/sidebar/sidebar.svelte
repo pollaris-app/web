@@ -2,8 +2,32 @@
 	import { Dialog } from '$components/actions/dialog';
 	import { Logo } from '$components/data-display/logo';
 	import { cn } from '@kurasu/variants';
-	import { Compass, Home, PieChart, type Icon as IconType } from 'lucide-svelte';
+	import { Check, Compass, Home, PieChart, type Icon as IconType } from 'lucide-svelte';
 	import { page } from '$app/stores';
+	import { createTabs, melt } from '@melt-ui/svelte';
+	import { Button } from '$components/actions/button';
+
+	const {
+		elements: { root, list, content, trigger },
+		states: { value }
+	} = createTabs({
+		defaultValue: 'tab1'
+	});
+
+	const triggers = [
+		{
+			id: 'poll',
+			label: 'Poll',
+			description: 'A super nice description that tells you all.'
+		},
+		{
+			id: 'quiz',
+			label: 'Quiz',
+			description: 'A super nice description that tells you all.'
+		}
+	] as const;
+
+	type TriggerIds = (typeof triggers)[number]['id'];
 
 	const PAGES = [
 		{
@@ -26,6 +50,21 @@
 	let pathname = $derived($page.url.pathname);
 </script>
 
+{#snippet contentSnippet(id: string)}
+	{#if id === 'tab1'}
+		<div class="flex flex:col gap:16">
+			<h1>Tab 1</h1>
+		</div>
+	{/if}
+
+	{#if id === 'tab2'}
+		<div class="flex flex:col gap:16">
+			<h1>Tab 2</h1>
+			<h2>test</h2>
+		</div>
+	{/if}
+{/snippet}
+
 <div class="flex flex:col min-w:256 gap:32">
 	<Logo variant="full" />
 
@@ -36,7 +75,39 @@
 			{/snippet}
 
 			{#snippet children()}
-				Testererer
+				<div use:melt={$root}>
+					<div use:melt={$list} class="w:100% flex gap-x:16">
+						{#each triggers as triggerItem}
+							<button
+								use:melt={$trigger(triggerItem.id)}
+								class={cn(
+									'rel flex flex:1 flex:col ai:start jc:start text-align:start gap:8 b:base-300|solid|1 r:16 p:16 cursor:pointer',
+									{
+										'outline:2|solid|base-400 bg:base-300': $value === triggerItem.id
+									}
+								)}
+							>
+								<h3 class="font:20 font:bold">{triggerItem.label}</h3>
+								<p class="color:neutral w:75%">{triggerItem.description}</p>
+
+								<span
+									class={cn(
+										'abs flex ai:center jc:center color:base-400 top:16 right:16 w:24 h:24 r:full b:base-300|solid|1',
+										{
+											'b:base-400 bg:white': $value === triggerItem.id
+										}
+									)}
+								>
+									{#if $value === triggerItem.id}
+										<Check size={16} strokeWidth={3} />
+									{/if}
+								</span>
+							</button>
+						{/each}
+					</div>
+
+					{@render contentSnippet($value)}
+				</div>
 			{/snippet}
 		</Dialog>
 
