@@ -11,7 +11,7 @@
 		elements: { root, list, content, trigger },
 		states: { value }
 	} = createTabs({
-		defaultValue: 'tab1'
+		defaultValue: 'poll'
 	});
 
 	const triggers = [
@@ -50,20 +50,46 @@
 	let pathname = $derived($page.url.pathname);
 </script>
 
-{#snippet contentSnippet(id: string)}
-	{#if id === 'tab1'}
+<!-- {#snippet contentSnippet(id: string)}
+	{#if id === 'poll'}
 		<div class="flex flex:col gap:16">
 			<h1>Tab 1</h1>
+
+			<form>
+				<div>
+					<label for="name">Name</label>
+					<input type="text" id="name" />
+				</div>
+			</form>
 		</div>
 	{/if}
 
-	{#if id === 'tab2'}
+	{#if id === 'quiz'}
 		<div class="flex flex:col gap:16">
-			<h1>Tab 2</h1>
-			<h2>test</h2>
+			<div class="flex flex:col gap-y:4">
+				<h1 class="font:bold font:24">Tab 2</h1>
+				<p class="color:neutral">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+			</div>
+
+			<form class="flex flex:col gap-y:8">
+				<div class="flex flex:col gap-y:8">
+					<label for="name" class="font:semibold f:16 color:neutral-light">Name</label>
+					<input
+						type="text"
+						id="name"
+						placeholder="My super nice name"
+						class="flex ai:center jc:center p:12 r:16 b:base-300|solid|1"
+					/>
+				</div>
+			</form>
 		</div>
 	{/if}
-{/snippet}
+
+	<div class="flex gap-x:8 mt:16 as:end">
+		<Button variant="outline" color="error">Cancel</Button>
+		<Button>Continue</Button>
+	</div>
+{/snippet} -->
 
 <div class="flex flex:col min-w:256 gap:32">
 	<Logo variant="full" />
@@ -75,7 +101,7 @@
 			{/snippet}
 
 			{#snippet children()}
-				<div use:melt={$root}>
+				<div use:melt={$root} class="flex flex:col gap-y:16">
 					<div use:melt={$list} class="w:100% flex gap-x:16">
 						{#each triggers as triggerItem}
 							<button
@@ -106,7 +132,12 @@
 						{/each}
 					</div>
 
-					{@render contentSnippet($value)}
+					<!-- {@render contentSnippet($value)} -->
+
+					<div class="flex gap-x:8 mt:16 as:end">
+						<Button variant="outline" color="error">Cancel</Button>
+						<Button>Next</Button>
+					</div>
 				</div>
 			{/snippet}
 		</Dialog>

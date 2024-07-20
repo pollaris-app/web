@@ -1,5 +1,6 @@
 import type { Snippet } from 'svelte';
 import Root from './dialog.svelte';
+import type { AnyMeltElement } from '@melt-ui/svelte';
 
 interface Props {
 	children?: Snippet;

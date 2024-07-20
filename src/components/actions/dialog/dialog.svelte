@@ -37,7 +37,7 @@
 
 					<button
 						use:melt={$close}
-						class="cursor:pointer flex p:8 r:full bg:red/.1:hover fg:neutral color:crimson:hover ml:auto"
+						class="cursor:pointer flex p:8 r:full bg:red/.1:hover fg:neutral color:hsl(344,78%,45%):hover ml:auto"
 					>
 						<X size={24} />
 					</button>

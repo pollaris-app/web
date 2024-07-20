@@ -14,7 +14,7 @@ const variants = new Variants({
 			ghost: 'bg:transparent b:transparent'
 		},
 		color: {
-			primary: '',
+			primary: 'color:primary-foreground',
 			secondary: '',
 			accent: '',
 			success: '',
@@ -48,7 +48,7 @@ const variants = new Variants({
 			}
 
 			if (variant === 'outline') {
-				return `b:${color} color:${color}! bg:transparent`;
+				return `b:${color} color:${color}! bg:transparent bg:${color}/.10:hover`;
 			}
 
 			return `bg:${color} bg:${color}/.9:hover`;
