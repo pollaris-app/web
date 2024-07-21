@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { cn } from '@kurasu/variants';
 	import { buttonVariants, type ButtonProps } from '.';
-	import { emptyMeltElement, melt } from '@melt-ui/svelte';
+	import { Button as ButtonPrimitive } from 'bits-ui';
 
 	let {
 		children,
-		element,
 		icon,
 		variant = buttonVariants.getDefault()['variant'],
 		color = buttonVariants.getDefault()['color'],
@@ -14,21 +13,18 @@
 		class: className,
 		...props
 	}: ButtonProps = $props();
-
-	let meltEl = $derived(element ?? emptyMeltElement);
 </script>
 
 {#snippet iconSnippet(Icon: typeof icon)}
 	<Icon size={20} />
 {/snippet}
 
-<button
+<ButtonPrimitive.Root
 	class={cn(className, buttonVariants.forgeClasses({ variant, color, size, roundness }))}
-	use:melt={$meltEl}
 	{...props}
 >
 	{#if icon}
 		{@render iconSnippet(icon)}
 	{/if}
 	{@render children()}
-</button>
+</ButtonPrimitive.Root>

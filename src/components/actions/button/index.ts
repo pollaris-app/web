@@ -4,6 +4,7 @@ import type { AnyMeltElement } from '@melt-ui/svelte';
 import type { Snippet } from 'svelte';
 import type { HTMLButtonAttributes } from 'svelte/elements';
 import type { Icon } from 'lucide-svelte';
+import type { ButtonProps } from 'bits-ui';
 
 const variants = new Variants({
 	base: 'flex ai:center gap:8 b:2 b:solid cursor:pointer font:semibold',
@@ -61,15 +62,14 @@ type Color = keyof VariantsType<typeof variants.getVariants>['color'];
 type Size = keyof VariantsType<typeof variants.getVariants>['size'];
 type Roundness = keyof VariantsType<typeof variants.getVariants>['roundness'];
 
-interface Props extends HTMLButtonAttributes {
+type Props = ButtonProps & {
 	children: Snippet;
-	element?: AnyMeltElement;
 	icon?: typeof Icon;
 	variant?: Variant;
 	color?: Color;
 	size?: Size;
 	roundness?: Roundness;
 	class?: string;
-}
+};
 
 export { Root as Button, variants as buttonVariants, type Props as ButtonProps };
