@@ -5,6 +5,9 @@ export default {
 		'font-family': {
 			author: ['Author', ...variables['font-family'].sans]
 		},
+		styles: {
+			overlay: 'abs z:10 top:0 left:0 bg:base-50/.5 bd:blur(4) w:100% h:100%'
+		},
 
 		// COLORS
 		base: {
