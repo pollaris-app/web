@@ -53,7 +53,8 @@ export default {
 				'abs z:20 top:50% left:50% transform:center translate(-50%,-50%) w:576 h:max-content bg:base-200 b:2|base-300|solid p:16 r:32 flex flex:col gap:32',
 			overlay: 'abs z:10 top:0 left:0 bg:base-50/.5 bd:blur(4) w:100% h:100%',
 			title: 'heading-dialog',
-			description: 'font:18 color:neutral'
+			description: 'font:18 color:neutral',
+			close: 'cursor:pointer flex p:8 r:full bg:error/.1:hover fg:neutral color:error:hover ml:auto'
 		}
 	}
 } as Config;
