@@ -14,7 +14,7 @@
 </script>
 
 {#snippet statusElement(status: AlertProps['status'])}
-	<div class="flex jc:center ai:center color:info w:48 h:48 r:full bg:info/.15">
+	<div class={`flex jc:center ai:center color:${status} w:48 h:48 r:full bg:${status}/.15`}>
 		{#if status === 'info'}
 			<Info size={24} />
 		{:else if status === 'success'}
@@ -34,20 +34,20 @@
 
 	<AlertDialog.Portal>
 		<!-- TODO: Create a class for overlays -->
-		<AlertDialog.Overlay class="overlay" />
+		<AlertDialog.Overlay class="dialog-overlay" />
 
-		<AlertDialog.Content>
+		<AlertDialog.Content class="dialog-content">
 			<div class="flex flex:col gap-y:16">
 				<div class="flex jc:start ai:center gap-x:16">
 					{@render statusElement(status)}
 
-					<AlertDialog.Title>
+					<AlertDialog.Title class="dialog-title">
 						{title}
 					</AlertDialog.Title>
 				</div>
 
 				{#if description}
-					<AlertDialog.Description>
+					<AlertDialog.Description class="dialog-description">
 						{description}
 					</AlertDialog.Description>
 				{/if}
