@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { Dialog } from 'bits-ui';
+	import { Dialog, type Builder } from 'bits-ui';
 
-	import { CircleAlert, CircleCheck, Info, Plus, TriangleAlert, X } from 'lucide-svelte';
+	import { CircleAlert, CircleCheck, Info, Plus, TrainFrontTunnel, TriangleAlert, X } from 'lucide-svelte';
 
 	import type { DialogProps } from '.';
+	import { Alert, } from '../alert';
 
 	let {
 		children,
@@ -11,9 +12,34 @@
 		status = 'info',
 		title,
 		description,
-		class: className
+		openState = $bindable(),
+		alertBeforeClose,
+		class: className,
+		...props
 	}: DialogProps = $props();
 </script>
+
+{#snippet closeButton(builder?: Builder)}
+	{@const conditionalBuilder = builder ? builder?.action : () => {}}
+
+	<div class="dialog-close" use:conditionalBuilder  {...builder}>
+		<X size={24} />
+	</div>
+{/snippet}
+
+{#snippet close(alertBeforeClose: boolean)}
+	{#if alertBeforeClose}
+	<Alert title='Are you sure you want to cancel?' status='warning' onAction={() => openState = false}>
+		{#snippet trigger({builder})}
+			{@render closeButton(builder)}
+		{/snippet}
+	</Alert>
+	{:else}
+		<Dialog.Close asChild let:builder>
+			{@render closeButton(builder)}
+		</Dialog.Close>
+	{/if}
+{/snippet}
 
 {#snippet statusElement(status: DialogProps['status'])}
 	<div class={`flex jc:center ai:center color:${status} w:48 h:48 r:full bg:${status}/.15`}>
@@ -29,12 +55,19 @@
 	</div>
 {/snippet}
 
-<Dialog.Root>
+<Dialog.Root
+  closeOnEscape={props.closeOnEscape ?? false}
+	onOpenChange={(open) => {
+		openState = open
+	}}
+	bind:open={openState}
+	{...props}
+>
 	<Dialog.Trigger asChild let:builder>
 		{@render trigger({ builder })}
 	</Dialog.Trigger>
 
-	<Dialog.Portal class="abs top:0 left:0 w:100dvw h:100dvh">
+	<Dialog.Portal >
 		<Dialog.Overlay class="dialog-overlay" />
 
 		<Dialog.Content class="dialog-content">
@@ -44,9 +77,7 @@
 
 					<Dialog.Title class="dialog-title">{title}</Dialog.Title>
 
-					<Dialog.Close class="dialog-close">
-						<X size={24} />
-					</Dialog.Close>
+					{@render close(alertBeforeClose ?? false)}
 				</div>
 
 				<Dialog.Description class="dialog-description">
@@ -55,9 +86,7 @@
 			</div>
 
 			<div class="flex flex:col gap-y:16 color:white">
-				{#if children}
-					{@render children()}
-				{/if}
+				{@render children()}
 			</div>
 		</Dialog.Content>
 	</Dialog.Portal>
