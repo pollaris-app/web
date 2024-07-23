@@ -6,6 +6,7 @@
 	import { page } from '$app/stores';
 	import { createTabs, melt } from '@melt-ui/svelte';
 	import { Button } from '$components/actions/button';
+	import { PAGES, TRIGGERS } from '.';
 
 	const {
 		elements: { root, list, content, trigger },
@@ -14,40 +15,9 @@
 		defaultValue: 'poll'
 	});
 
-	const triggers = [
-		{
-			id: 'poll',
-			label: 'Poll',
-			description: 'A super nice description that tells you all.'
-		},
-		{
-			id: 'quiz',
-			label: 'Quiz',
-			description: 'A super nice description that tells you all.'
-		}
-	] as const;
-
-	type TriggerIds = (typeof triggers)[number]['id'];
-
-	const PAGES = [
-		{
-			name: 'Home',
-			path: '/dashboard',
-			icon: Home
-		},
-		{
-			name: 'Discover',
-			path: '/dashboard/discover',
-			icon: Compass
-		},
-		{
-			name: 'Insights',
-			path: '/dashboard/insights',
-			icon: PieChart
-		}
-	];
-
 	let pathname = $derived($page.url.pathname);
+
+	let dialogOpen = $state(false)
 </script>
 
 <!-- {#snippet contentSnippet(id: string)}
@@ -95,17 +65,24 @@
 	<Logo variant="full" />
 
 	<nav class="flex flex:col gap:16">
-		<Dialog>
-			{#snippet triggerContent()}
-				Tester
+		<Dialog title='test' bind:openState={dialogOpen} alertBeforeClose onOutsideClick={(e) => {
+			e.preventDefault()
+
+			dialogOpen = false
+		}}>
+			{#snippet trigger({builder})}
+				<Button builders={[builder]}>Test</Button>
 			{/snippet}
 
-			{#snippet children()}
-				<div use:melt={$root} class="flex flex:col gap-y:16">
-					<div use:melt={$list} class="w:100% flex gap-x:16">
-						{#each triggers as triggerItem}
+			test
+			
+
+			<!-- {#snippet children()}
+				<div class="flex flex:col gap-y:16">
+					<div class="w:100% flex gap-x:16">
+						{#each TRIGGERS as triggerItem}
 							<button
-								use:melt={$trigger(triggerItem.id)}
+								
 								class={cn(
 									'rel flex flex:1 flex:col ai:start jc:start text-align:start gap:8 b:base-300|solid|1 r:16 p:16 cursor:pointer',
 									{
@@ -132,14 +109,14 @@
 						{/each}
 					</div>
 
-					<!-- {@render contentSnippet($value)} -->
+					{@render contentSnippet($value)}
 
 					<div class="flex gap-x:8 mt:16 as:end">
 						<Button variant="outline" color="error">Cancel</Button>
 						<Button>Next</Button>
 					</div>
 				</div>
-			{/snippet}
+			{/snippet} -->
 		</Dialog>
 
 		<ul class="flex flex:col gap:8">
