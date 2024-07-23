@@ -7,7 +7,9 @@ interface Props {
 	trigger: Snippet<[{ builder: Builder }]>;
 	title: string;
 	description?: string;
+	onAction?: () => void
 	status?: 'success' | 'warning' | 'error' | 'info';
+	openState?: boolean
 	class?: string;
 }
 

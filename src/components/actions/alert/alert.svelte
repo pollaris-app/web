@@ -2,15 +2,19 @@
 	import { AlertDialog } from 'bits-ui';
 	import type { AlertProps } from '.';
 	import { Info, CircleCheck, TriangleAlert, CircleAlert } from 'lucide-svelte';
+	import { Button } from '$components/actions/button';
 
 	let {
 		children,
 		trigger,
 		title,
 		description,
+		onAction,
+		openState = $bindable(),
 		status = 'info',
 		class: className
 	}: AlertProps = $props();
+
 </script>
 
 {#snippet statusElement(status: AlertProps['status'])}
@@ -27,13 +31,12 @@
 	</div>
 {/snippet}
 
-<AlertDialog.Root>
+<AlertDialog.Root bind:open={openState}>
 	<AlertDialog.Trigger asChild let:builder>
 		{@render trigger({ builder })}
 	</AlertDialog.Trigger>
 
 	<AlertDialog.Portal>
-		<!-- TODO: Create a class for overlays -->
 		<AlertDialog.Overlay class="dialog-overlay" />
 
 		<AlertDialog.Content class="dialog-content">
@@ -56,6 +59,23 @@
 			{#if children}
 				{@render children()}
 			{/if}
+
+		
+			<AlertDialog.Cancel asChild let:builder>
+				<Button builders={[builder]}>
+					Cancel
+				</Button>
+			</AlertDialog.Cancel>
+			<AlertDialog.Action asChild let:builder>
+				<Button builders={[builder]} onclick={() => {
+					if (onAction) {
+						onAction()
+					}
+				}}>
+					Confirm
+				</Button>
+			</AlertDialog.Action>
+			
 		</AlertDialog.Content>
 	</AlertDialog.Portal>
 </AlertDialog.Root>
