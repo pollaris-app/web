@@ -61,20 +61,23 @@
 			{/if}
 
 		
-			<AlertDialog.Cancel asChild let:builder>
-				<Button builders={[builder]}>
-					Cancel
-				</Button>
-			</AlertDialog.Cancel>
-			<AlertDialog.Action asChild let:builder>
-				<Button builders={[builder]} onclick={() => {
-					if (onAction) {
-						onAction()
-					}
-				}}>
-					Confirm
-				</Button>
-			</AlertDialog.Action>
+			<div class='flex ai:center jc:end gap-x:8'>
+				<AlertDialog.Cancel asChild let:builder>
+					<Button size='small' color='secondary' builders={[builder]}>
+						Cancel
+					</Button>
+				</AlertDialog.Cancel>
+				
+				<AlertDialog.Action asChild let:builder>
+					<Button size='small' color='error' builders={[builder]} onclick={() => {
+						if (onAction) {
+							onAction()
+						}
+					}}>
+						Confirm
+					</Button>
+				</AlertDialog.Action>
+			</div>
 			
 		</AlertDialog.Content>
 	</AlertDialog.Portal>
