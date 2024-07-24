@@ -39,7 +39,8 @@
 	<AlertDialog.Portal>
 		<AlertDialog.Overlay class="dialog-overlay" />
 
-		<AlertDialog.Content class="dialog-content">
+		<!-- TODO: Add custom classes for alert (make the base classes for all types of dialogs and then reuse them in dialog and alert classes) -->
+		<AlertDialog.Content class="dialog-content w:640!">
 			<div class="flex flex:col gap-y:16">
 				<div class="flex jc:start ai:center gap-x:16">
 					{@render statusElement(status)}
