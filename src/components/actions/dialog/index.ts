@@ -1,6 +1,5 @@
 import type { Snippet } from 'svelte';
 import Root from './dialog.svelte';
-import type { AnyMeltElement } from '@melt-ui/svelte';
 import type { Builder, DialogProps } from 'bits-ui';
 
 type Props = DialogProps & {
@@ -11,6 +10,7 @@ type Props = DialogProps & {
 	title: string;
 	description?: string;
 	alertBeforeClose?: boolean;
+	closeOnEvents?: boolean;
 	class?: string;
 }
 

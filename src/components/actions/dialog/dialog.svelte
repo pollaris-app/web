@@ -14,31 +14,20 @@
 		description,
 		openState = $bindable(),
 		alertBeforeClose,
+		closeOnEvents,
 		class: className,
 		...props
 	}: DialogProps = $props();
+
+	let alertOpen = $state(false)
 </script>
 
 {#snippet closeButton(builder?: Builder)}
 	{@const conditionalBuilder = builder ? builder?.action : () => {}}
 
-	<div class="dialog-close" use:conditionalBuilder  {...builder}>
+	<div class="dialog-close" use:conditionalBuilder tabindex="0" role='button'  {...builder}>
 		<X size={24} />
 	</div>
-{/snippet}
-
-{#snippet close(alertBeforeClose: boolean)}
-	{#if alertBeforeClose}
-	<Alert title='Are you sure you want to cancel?' status='warning' onAction={() => openState = false}>
-		{#snippet trigger({builder})}
-			{@render closeButton(builder)}
-		{/snippet}
-	</Alert>
-	{:else}
-		<Dialog.Close asChild let:builder>
-			{@render closeButton(builder)}
-		</Dialog.Close>
-	{/if}
 {/snippet}
 
 {#snippet statusElement(status: DialogProps['status'])}
@@ -55,12 +44,16 @@
 	</div>
 {/snippet}
 
+<svelte:window onkeydown={(e) => {
+	if (e.key === 'Escape' && closeOnEvents) {
+		alertOpen = true
+	}
+}} />
+
 <Dialog.Root
-  closeOnEscape={props.closeOnEscape ?? false}
-	onOpenChange={(open) => {
-		openState = open
-	}}
 	bind:open={openState}
+	closeOnOutsideClick={false}
+	closeOnEscape={false}
 	{...props}
 >
 	<Dialog.Trigger asChild let:builder>
@@ -68,7 +61,18 @@
 	</Dialog.Trigger>
 
 	<Dialog.Portal >
-		<Dialog.Overlay class="dialog-overlay" />
+		<Dialog.Overlay
+			class="dialog-overlay"
+			onclick={(e) => {
+				if (e && closeOnEvents) {
+					if (alertBeforeClose) {
+						alertOpen = true
+					} else {
+						openState = false
+					}
+				}
+			}}
+		/>
 
 		<Dialog.Content class="dialog-content">
 			<div class="flex flex:col gap:16">
@@ -77,7 +81,23 @@
 
 					<Dialog.Title class="dialog-title">{title}</Dialog.Title>
 
-					{@render close(alertBeforeClose ?? false)}
+					<div class='ml:auto'>
+						{#if alertBeforeClose}
+							<Alert
+								bind:openState={alertOpen}
+								title='Are you sure you want to cancel?'
+								status='warning' onAction={() => openState = false}
+							>
+								{#snippet trigger({builder})}
+									{@render closeButton(builder)}
+								{/snippet}
+							</Alert>
+						{:else}
+							<Dialog.Close asChild let:builder>
+								{@render closeButton(builder)}
+							</Dialog.Close>
+						{/if}
+					</div>
 				</div>
 
 				<Dialog.Description class="dialog-description">
