@@ -37,18 +37,18 @@ html.dark {
 	--base-400: 0 0% 16%;
 
 	--primary: 0 0% 100%;
-	--primary-foreground: 0 0% 0%;
+	--primary-foreground: 0 0% 6%;
 
-	--secondary: 0 0% 0%;
-	--secondary-foreground: 0 0% 100%;
+	--secondary: 0 0% 16%;
+	--secondary-foreground: 0 0% 96%;
 
 	--accent: 0 0% 0%;
 	--accent-foreground: 0 0% 100%;
 
-	--success: 0 0% 0%;
+	--success: 155 65% 50%;
 	--success-foreground: 0 0% 100%;
 
-	--warning: 0 0% 0%;
+	--warning: 40 65% 50%;
 	--warning-foreground: 0 0% 100%;
 
 	--error: 350 65% 50%;

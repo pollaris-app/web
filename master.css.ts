@@ -54,7 +54,7 @@ export default {
 			overlay: 'abs z:10 top:0 left:0 bg:base-50/.5 bd:blur(4) w:100% h:100%',
 			title: 'heading-dialog',
 			description: 'font:18 color:neutral',
-			close: 'cursor:pointer flex p:8 r:full bg:error/.1:hover fg:neutral color:error:hover ml:auto'
+			close: 'cursor:pointer flex p:8 r:full bg:error/.1:hover fg:neutral color:error:hover'
 		}
 	}
 } as Config;
