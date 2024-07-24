@@ -1,8 +1,6 @@
 import Root from './button.svelte';
 import { Variants, type VariantsType } from '@kurasu/variants';
-import type { AnyMeltElement } from '@melt-ui/svelte';
 import type { Snippet } from 'svelte';
-import type { HTMLButtonAttributes } from 'svelte/elements';
 import type { Icon } from 'lucide-svelte';
 import type { ButtonProps } from 'bits-ui';
 
@@ -52,7 +50,7 @@ const variants = new Variants({
 				return `b:${color} color:${color}! bg:transparent bg:${color}/.10:hover`;
 			}
 
-			return `bg:${color} bg:${color}/.9:hover`;
+			return `bg:${color} bg:${color}/.75:hover color:${color}-foreground`;
 		}
 	]
 });
