@@ -20,7 +20,7 @@
 	let dialogOpen = $state(false)
 </script>
 
-<!-- {#snippet contentSnippet(id: string)}
+{#snippet contentSnippet(id: string)}
 	{#if id === 'poll'}
 		<div class="flex flex:col gap:16">
 			<h1>Tab 1</h1>
@@ -54,69 +54,51 @@
 			</form>
 		</div>
 	{/if}
-
-	<div class="flex gap-x:8 mt:16 as:end">
-		<Button variant="outline" color="error">Cancel</Button>
-		<Button>Continue</Button>
-	</div>
-{/snippet} -->
+{/snippet}
 
 <div class="flex flex:col min-w:256 gap:32">
 	<Logo variant="full" />
 
 	<nav class="flex flex:col gap:16">
-		<Dialog title='test' bind:openState={dialogOpen} alertBeforeClose onOutsideClick={(e) => {
-			e.preventDefault()
-
-			dialogOpen = false
-		}}>
+		<Dialog title='test' bind:openState={dialogOpen} alertBeforeClose closeOnEvents>
 			{#snippet trigger({builder})}
 				<Button builders={[builder]}>Test</Button>
 			{/snippet}
 
-			test
-			
+			<div class="flex flex:col gap-y:16">
+				<div class="w:100% flex gap-x:16">
+					{#each TRIGGERS as triggerItem}
+						<button
+							class={cn(
+								'rel flex flex:1 flex:col ai:start jc:start text-align:start gap:8 b:base-300|solid|1 r:16 p:16 cursor:pointer',
+								{
+									'outline:2|solid|base-400 bg:base-300': $value === triggerItem.id
+								}
+							)}
+						>
+							<h3 class="font:20 font:bold">{triggerItem.label}</h3>
+							<p class="color:neutral w:75%">{triggerItem.description}</p>
 
-			<!-- {#snippet children()}
-				<div class="flex flex:col gap-y:16">
-					<div class="w:100% flex gap-x:16">
-						{#each TRIGGERS as triggerItem}
-							<button
-								
+							<span
 								class={cn(
-									'rel flex flex:1 flex:col ai:start jc:start text-align:start gap:8 b:base-300|solid|1 r:16 p:16 cursor:pointer',
+									'abs flex ai:center jc:center color:base-400 top:16 right:16 w:24 h:24 r:full b:base-300|solid|1',
 									{
-										'outline:2|solid|base-400 bg:base-300': $value === triggerItem.id
+										'b:base-400 bg:white': $value === triggerItem.id
 									}
 								)}
 							>
-								<h3 class="font:20 font:bold">{triggerItem.label}</h3>
-								<p class="color:neutral w:75%">{triggerItem.description}</p>
-
-								<span
-									class={cn(
-										'abs flex ai:center jc:center color:base-400 top:16 right:16 w:24 h:24 r:full b:base-300|solid|1',
-										{
-											'b:base-400 bg:white': $value === triggerItem.id
-										}
-									)}
-								>
-									{#if $value === triggerItem.id}
-										<Check size={16} strokeWidth={3} />
-									{/if}
-								</span>
-							</button>
-						{/each}
-					</div>
-
-					{@render contentSnippet($value)}
-
-					<div class="flex gap-x:8 mt:16 as:end">
-						<Button variant="outline" color="error">Cancel</Button>
-						<Button>Next</Button>
-					</div>
+								{#if $value === triggerItem.id}
+									<Check size={16} strokeWidth={3} />
+								{/if}
+							</span>
+						</button>
+					{/each}
 				</div>
-			{/snippet} -->
+
+				{@render contentSnippet($value)}
+
+				<Button size='small' class='as:end w:max-content'>Next</Button>
+			</div>
 		</Dialog>
 
 		<ul class="flex flex:col gap:8">

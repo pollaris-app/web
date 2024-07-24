@@ -30,7 +30,7 @@ const PAGES = [
         path: '/dashboard/insights',
         icon: PieChart
     }
-];
+] as const;
 
 interface Props {}
 
