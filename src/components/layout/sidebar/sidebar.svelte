@@ -1,103 +1,51 @@
 <script lang="ts">
 	import { Dialog } from '$components/actions/dialog';
+	import { DialogTabs } from '$components/actions/dialog/tabs'
 	import { Logo } from '$components/data-display/logo';
 	import { cn } from '@kurasu/variants';
 	import { Check, Compass, Home, PieChart, type Icon as IconType } from 'lucide-svelte';
 	import { page } from '$app/stores';
-	import { createTabs, melt } from '@melt-ui/svelte';
 	import { Button } from '$components/actions/button';
 	import { PAGES, TRIGGERS } from '.';
-
-	const {
-		elements: { root, list, content, trigger },
-		states: { value }
-	} = createTabs({
-		defaultValue: 'poll'
-	});
 
 	let pathname = $derived($page.url.pathname);
 
 	let dialogOpen = $state(false)
+	let dialogActiveTab = $state(TRIGGERS[0].value)
 </script>
-
-{#snippet contentSnippet(id: string)}
-	{#if id === 'poll'}
-		<div class="flex flex:col gap:16">
-			<h1>Tab 1</h1>
-
-			<form>
-				<div>
-					<label for="name">Name</label>
-					<input type="text" id="name" />
-				</div>
-			</form>
-		</div>
-	{/if}
-
-	{#if id === 'quiz'}
-		<div class="flex flex:col gap:16">
-			<div class="flex flex:col gap-y:4">
-				<h1 class="font:bold font:24">Tab 2</h1>
-				<p class="color:neutral">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-			</div>
-
-			<form class="flex flex:col gap-y:8">
-				<div class="flex flex:col gap-y:8">
-					<label for="name" class="font:semibold f:16 color:neutral-light">Name</label>
-					<input
-						type="text"
-						id="name"
-						placeholder="My super nice name"
-						class="flex ai:center jc:center p:12 r:16 b:base-300|solid|1"
-					/>
-				</div>
-			</form>
-		</div>
-	{/if}
-{/snippet}
 
 <div class="flex flex:col min-w:256 gap:32">
 	<Logo variant="full" />
 
 	<nav class="flex flex:col gap:16">
-		<Dialog title='test' bind:openState={dialogOpen} alertBeforeClose closeOnEvents>
+		<Dialog
+			bind:openState={dialogOpen}
+			title='Create a new quiz'
+			description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae libero bibendum leo imperdiet imperdiet convallis a lacus. Donec fringilla volutpat nunc et sollicitudin.'
+			alertBeforeClose
+			closeOnEvents
+		>
 			{#snippet trigger({builder})}
-				<Button builders={[builder]}>Test</Button>
+				<Button builders={[builder]}>Create New</Button>
 			{/snippet}
 
 			<div class="flex flex:col gap-y:16">
-				<div class="w:100% flex gap-x:16">
-					{#each TRIGGERS as triggerItem}
-						<button
-							class={cn(
-								'rel flex flex:1 flex:col ai:start jc:start text-align:start gap:8 b:base-300|solid|1 r:16 p:16 cursor:pointer',
-								{
-									'outline:2|solid|base-400 bg:base-300': $value === triggerItem.id
-								}
-							)}
-						>
-							<h3 class="font:20 font:bold">{triggerItem.label}</h3>
-							<p class="color:neutral w:75%">{triggerItem.description}</p>
+				<DialogTabs triggers={TRIGGERS} bind:active={dialogActiveTab}>
+					<form onsubmit={(e) => {
+						e.preventDefault()
 
-							<span
-								class={cn(
-									'abs flex ai:center jc:center color:base-400 top:16 right:16 w:24 h:24 r:full b:base-300|solid|1',
-									{
-										'b:base-400 bg:white': $value === triggerItem.id
-									}
-								)}
-							>
-								{#if $value === triggerItem.id}
-									<Check size={16} strokeWidth={3} />
-								{/if}
-							</span>
-						</button>
-					{/each}
-				</div>
+						console.log('submitted')
+					}} class='flex flex:col gap:16 w:100%'>
+						<div class="flex flex:col gap:4 w:100%">
+							<label for="title" class='font:16 font:semibold'>Title</label>
+							<input id='title' type="text" class='flex px:16 py:12 r:16 b:base-300|solid|1 color:neutral::placeholder' placeholder='Title'>
+						</div>
 
-				{@render contentSnippet($value)}
+						<Button type='submit' size='small' class='as:end w:max-content'>Next</Button>
+					</form>
+				</DialogTabs>
 
-				<Button size='small' class='as:end w:max-content'>Next</Button>
+				
 			</div>
 		</Dialog>
 
