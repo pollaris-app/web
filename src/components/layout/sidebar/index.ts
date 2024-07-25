@@ -1,7 +1,7 @@
 import Root from './sidebar.svelte';
 import { Compass, Home, PieChart } from 'lucide-svelte';
 
-const TRIGGERS = [
+const CHOICES = [
     {
         value: 'poll',
         label: 'Poll',
@@ -34,4 +34,4 @@ const PAGES = [
 
 interface Props {}
 
-export { Root as Sidebar, TRIGGERS, PAGES, type Props as SidebarProps };
+export { Root as Sidebar, CHOICES, PAGES, type Props as SidebarProps };
