@@ -3,16 +3,16 @@ import { Compass, Home, PieChart } from 'lucide-svelte';
 
 const TRIGGERS = [
     {
-        id: 'poll',
+        value: 'poll',
         label: 'Poll',
         description: 'A super nice description that tells you all.'
     },
     {
-        id: 'quiz',
+        value: 'quiz',
         label: 'Quiz',
         description: 'A super nice description that tells you all.'
     }
-] as const;
+];
 
 const PAGES = [
     {
