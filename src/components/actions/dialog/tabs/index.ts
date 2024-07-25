@@ -3,13 +3,15 @@ import type { Snippet } from 'svelte'
 import type { TabsProps } from 'bits-ui'
 
 type Trigger = {
-  name: string,
   value: string
+  label: string,
+  description?: string;
 }
 
 type Props = TabsProps & {
   children: Snippet;
   triggers: Trigger[]
+  active?: string | undefined
 }
 
 export {
