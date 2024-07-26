@@ -4,17 +4,17 @@
 	import type { ChoiceGroupProps } from ".";
 	import { Check } from "lucide-svelte";
 
-  let { choices, value = $bindable(choices[0].value) }: ChoiceGroupProps = $props()
+  let { choices, value = $bindable(choices[0].value), ...props }: ChoiceGroupProps = $props()
 </script>
  
-<RadioGroup.Root bind:value={value} class="flex gap:16 ai:start jc:start">
+<RadioGroup.Root bind:value={value} class="flex gap:16 ai:start jc:start" {...props}>
   {#each choices as choice}
     <RadioGroup.Item
       value={choice.value}
       class={cn(
         'rel flex flex:1 flex:col ai:start jc:start text-align:start gap:8 b:base-300|solid|1 r:16 p:16 cursor:pointer',
         {
-          'outline:2|solid|base-400 bg:base-300': value === choice.value
+          'outline-offset:2 bg:base-300': value === choice.value
         }
       )}
     >
@@ -27,7 +27,7 @@
         class={cn(
           'abs flex ai:center jc:center color:base-400 top:16 right:16 w:24 h:24 r:full b:base-300|solid|1',
           {
-            'b:base-400 bg:white': value === choice.value
+            'b:white bg:white': value === choice.value
           }
         )}
       >

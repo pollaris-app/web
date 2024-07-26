@@ -38,15 +38,15 @@
 					}}
 					class='flex flex:col gap:16 w:100%'
 				>
-					<div class="flex flex:col gap:4 w:100%">
+					<div class="flex flex:col gap:6 w:100%">
 						<label for="title" class='font:16 font:semibold'>Title</label>
 						<input id='title' type="text" class='flex px:16 py:12 r:16 b:base-300|solid|1 color:neutral::placeholder' placeholder='Title'>
 					</div>
 
-					<ChoiceGroup choices={CHOICES} bind:value={activeDialogChoice} />
-
-					<!-- <DialogTabs triggers={TRIGGERS} bind:active={dialogActiveTab}> -->
-					<!-- </DialogTabs> -->
+					<div class="flex flex:col gap:6 w:100%">
+						<label for="type" class='font:16 font:semibold'>Type</label>
+						<ChoiceGroup id='type' choices={CHOICES} bind:value={activeDialogChoice} orientation='horizontal' />
+					</div>
 
 					<Button type='submit' size='small' class='as:end w:max-content'>
 						Next
