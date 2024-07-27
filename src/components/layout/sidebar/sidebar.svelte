@@ -8,7 +8,7 @@
 	import { PAGES, CHOICES, type SidebarProps } from '.';
 	import { ChoiceGroup } from '$components/data-input/choice-group';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
-	import type { Icon as IconType } from 'lucide-svelte';
+	import { LogOut, Plus, Settings, type Icon as IconType } from 'lucide-svelte';
 	import { createNewDialogSchema } from '$lib/schemas';
 	import { Control, Field, Label, Description, FieldErrors, Fieldset, Legend } from 'formsnap';
 
@@ -38,7 +38,10 @@
 			closeOnEvents
 		>
 			{#snippet trigger({ builder })}
-				<Button builders={[builder]}>Create New</Button>
+				<Button builders={[builder]}>
+					<Plus size={20} />
+					Create New
+				</Button>
 			{/snippet}
 
 			<div class="flex flex:col gap-y:16">
@@ -112,16 +115,20 @@
 			<li>
 				<a
 					href="/settings"
-					class="flex gap:8 p:16 r:16 bg:base-200:hover w:100% color:gray font:semibold letter-spacing:0.5"
-					>Settings</a
+					class="flex ai:center gap:8 p:16 r:16 bg:base-300:hover w:100% color:neutral color:white:hover font:semibold letter-spacing:0.5"
 				>
+					<Settings size={20} />
+					Settings
+				</a>
 			</li>
 			<li>
 				<a
 					href="/settings"
-					class="flex gap:8 p:16 r:16 bg:base-200:hover w:100% color:gray font:semibold letter-spacing:0.5"
-					>Log Out</a
+					class="flex ai:center gap:8 p:16 r:16 bg:error/.25:hover w:100% color:neutral color:white:hover font:semibold letter-spacing:0.5"
 				>
+					<LogOut size={20} />
+					Log Out
+				</a>
 			</li>
 		</ul>
 	</nav>
