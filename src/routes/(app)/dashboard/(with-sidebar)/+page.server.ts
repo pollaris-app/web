@@ -1,5 +1,6 @@
 import { createNewDialogSchema } from '$lib/schemas';
-import { fail, message, superValidate } from 'sveltekit-superforms';
+import { redirect } from '@sveltejs/kit';
+import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
 export const actions = {
@@ -10,6 +11,6 @@ export const actions = {
 			return fail(400, { form });
 		}
 
-		return message(form, 'git');
+		throw redirect(303, `/dashboard/new/${form.data.type}`);
 	}
 };
