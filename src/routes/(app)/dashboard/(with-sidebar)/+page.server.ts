@@ -1,4 +1,4 @@
-import { createNewDialogSchema } from '$lib/schemas';
+import { createNewDialogSchema } from '$lib/zod';
 import { redirect } from '@sveltejs/kit';
 import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
@@ -11,6 +11,8 @@ export const actions = {
 			return fail(400, { form });
 		}
 
-		throw redirect(303, `/dashboard/new/${form.data.type}`);
+		const id = 'test';
+
+		throw redirect(303, `/new/${form.data.type}/${id}`);
 	}
 };
