@@ -9,7 +9,7 @@
 	import { ChoiceGroup } from '$components/data-input/choice-group';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { LogOut, Plus, Settings, type Icon as IconType } from 'lucide-svelte';
-	import { createNewDialogSchema } from '$lib/schemas';
+	import { createNewDialogSchema } from '$lib/zod/schemas';
 	import { Control, Field, Label, Description, FieldErrors, Fieldset, Legend } from 'formsnap';
 
 	let { data }: SidebarProps = $props();

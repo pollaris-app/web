@@ -1,4 +1,4 @@
-import { createNewDialogSchema } from '$lib/schemas';
+import { createNewDialogSchema } from '$lib/zod';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { LayoutServerLoad } from '../$types';
