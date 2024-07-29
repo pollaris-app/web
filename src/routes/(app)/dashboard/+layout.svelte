@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Sidebar } from '$components/layout/sidebar';
 	import type { Snippet } from 'svelte';
-	import type { LayoutData, PageData } from './$types';
+	import type { LayoutData } from './$types';
 
 	interface DashboardLayoutProps {
 		children: Snippet;

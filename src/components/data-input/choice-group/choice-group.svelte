@@ -11,6 +11,7 @@
 <RadioGroup.Root bind:value class="flex gap:16 ai:start jc:start" {...props}>
 	{#each choices as choice}
 		<Control let:attrs>
+			<RadioGroup.Input {...attrs} />
 			<RadioGroup.Item
 				value={choice.value}
 				class={cn(

@@ -12,12 +12,10 @@
 	import { createNewDialogSchema } from '$lib/schemas';
 	import { Control, Field, Label, Description, FieldErrors, Fieldset, Legend } from 'formsnap';
 
-	let pathname = $derived($page.url.pathname);
-
-	let dialogOpen = $state(false);
-	let activeDialogChoice = $state(CHOICES[0].value);
-
 	let { data }: SidebarProps = $props();
+
+	let pathname = $derived($page.url.pathname);
+	let dialogOpen = $state(false);
 
 	const form = superForm(data.form, {
 		validators: zodClient(createNewDialogSchema)
@@ -68,8 +66,8 @@
 
 							<ChoiceGroup
 								id="type"
-								choices={CHOICES}
 								bind:value={$formData.type}
+								choices={CHOICES}
 								orientation="horizontal"
 							/>
 
