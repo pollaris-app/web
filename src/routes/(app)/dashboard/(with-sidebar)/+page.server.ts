@@ -1,4 +1,4 @@
-import { createNewDialogSchema } from '$lib/zod';
+import { createNewDialogSchema } from '$lib/zod/schemas';
 import { redirect } from '@sveltejs/kit';
 import { fail, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
