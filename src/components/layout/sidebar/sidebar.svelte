@@ -11,6 +11,9 @@
 	import { LogOut, Plus, Settings, type Icon as IconType } from 'lucide-svelte';
 	import { createNewDialogSchema } from '$lib/zod/schemas';
 	import { Control, Field, Label, Description, FieldErrors, Fieldset, Legend } from 'formsnap';
+	import * as Dropdown from '$components/actions/dropdown';
+	import { Tooltip } from '$components/data-display/tooltip';
+	import { type Builder } from 'bits-ui';
 
 	let { data }: SidebarProps = $props();
 
@@ -24,10 +27,8 @@
 	const { form: formData, enhance } = form;
 </script>
 
-<div class="flex flex:col min-w:256 gap:32">
-	<Logo variant="full" />
-
-	<nav class="flex flex:col gap:16">
+<div class="flex flex:col max-w:52 gap:32 h:calc(100dvh-96)">
+	<nav class="flex flex:col gap:16 h:100%">
 		<Dialog
 			bind:openState={dialogOpen}
 			title="Create something new"
@@ -35,14 +36,21 @@
 			alertBeforeClose
 			closeOnEvents
 		>
-			{#snippet trigger({ builder })}
-				<Button builders={[builder]}>
-					<Plus size={20} />
-					Create New
-				</Button>
+			{#snippet trigger({ builder: dialogBuilder })}
+				<Tooltip openDelay={0} content={{ side: 'right', sideOffset: 8 }}>
+					{#snippet trigger({ builder: tooltipBuilder })}
+						<Button builders={[tooltipBuilder, dialogBuilder]} class="h:52">
+							<Plus size={20} />
+						</Button>
+					{/snippet}
+
+					{#snippet children()}
+						Create new
+					{/snippet}
+				</Tooltip>
 			{/snippet}
 
-			<div class="flex flex:col gap-y:16">
+			<div class="flex flex:col gap-y:16 mt:auto">
 				<form method="POST" action="/dashboard" use:enhance class="flex flex:col gap:16 w:100%">
 					<Field {form} name="title">
 						<Control let:attrs>
@@ -59,25 +67,20 @@
 							</div>
 						</Control>
 					</Field>
-
 					<Fieldset {form} name="type">
 						<div class="flex flex:col gap:6 w:100%">
 							<Legend>Select the type of content you want to create:</Legend>
-
 							<ChoiceGroup
 								id="type"
 								bind:value={$formData.type}
 								choices={CHOICES}
 								orientation="horizontal"
 							/>
-
 							<FieldErrors />
 						</div>
 					</Fieldset>
-
 					<Button type="submit" size="small" class="as:end w:max-content">Next</Button>
 				</form>
-
 				<SuperDebug data={$formData} />
 			</div>
 		</Dialog>
@@ -85,48 +88,64 @@
 		<ul class="flex flex:col gap:8">
 			{#each PAGES as page}
 				<li>
-					<a
-						href={page.path}
-						class={cn(
-							'flex ai:center gap:8 p:16 r:16 bg:base-300:hover w:100% color:neutral color:white:hover font:semibold letter-spacing:0.5',
-							{
-								'bg:base-300': page.path === pathname
-							}
-						)}
-					>
-						{#snippet icon(Icon: typeof IconType)}
-							<Icon size={20} />
+					<Tooltip openDelay={0} content={{ side: 'right', sideOffset: 8 }}>
+						{#snippet trigger({ builder })}
+							<a
+								href={page.path}
+								class={cn(
+									'flex ai:center jc:center gap:8 p:16 r:16 bg:base-300:hover w:100% color:neutral color:white:hover font:semibold letter-spacing:0.5',
+									{
+										'bg:base-300': page.path === pathname
+									}
+								)}
+								use:builder.action
+								{...builder}
+							>
+								{#snippet icon(Icon: typeof IconType)}
+									<Icon size={20} />
+								{/snippet}
+
+								{@render icon(page.icon)}
+							</a>
 						{/snippet}
 
-						{@render icon(page.icon)}
-						<span>
+						{#snippet children()}
 							{page.name}
-						</span>
-					</a>
+						{/snippet}
+					</Tooltip>
 				</li>
 			{/each}
 		</ul>
-	</nav>
 
-	<nav class="flex flex:col gap:8 mt:auto">
-		<ul>
+		<ul class="mt:auto flex flex:col">
 			<li>
-				<a
-					href="/settings"
-					class="flex ai:center gap:8 p:16 r:16 bg:base-300:hover w:100% color:neutral color:white:hover font:semibold letter-spacing:0.5"
-				>
-					<Settings size={20} />
-					Settings
-				</a>
-			</li>
-			<li>
-				<a
-					href="/settings"
-					class="flex ai:center gap:8 p:16 r:16 bg:error/.25:hover w:100% color:neutral color:white:hover font:semibold letter-spacing:0.5"
-				>
-					<LogOut size={20} />
-					Log Out
-				</a>
+				<Tooltip openDelay={0} content={{ side: 'right', sideOffset: 8 }}>
+					{#snippet trigger({ builder })}
+						{@const href = '/dashboard/settings'}
+
+						<a
+							{href}
+							class={cn(
+								'flex ai:center jc:center gap:8 p:16 r:16 bg:base-300:hover w:100% color:neutral color:white:hover font:semibold letter-spacing:0.5',
+								{
+									'bg:base-300': href === pathname
+								}
+							)}
+							use:builder.action
+							{...builder}
+						>
+							{#snippet icon(Icon: typeof IconType)}
+								<Icon size={20} />
+							{/snippet}
+
+							{@render icon(Settings)}
+						</a>
+					{/snippet}
+
+					{#snippet children()}
+						<div>Settings</div>
+					{/snippet}
+				</Tooltip>
 			</li>
 		</ul>
 	</nav>
