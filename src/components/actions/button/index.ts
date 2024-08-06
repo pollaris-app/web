@@ -19,7 +19,8 @@ const variants = new Variants({
 			success: '',
 			warning: '',
 			error: '',
-			info: ''
+			info: '',
+			neutral: ''
 		},
 		size: {
 			small: 'p:8',

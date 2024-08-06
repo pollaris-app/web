@@ -20,7 +20,7 @@
 {/snippet}
 
 <ButtonPrimitive.Root
-	class={cn(className, buttonVariants.forgeClasses({ variant, color, size, roundness }))}
+	class={cn(buttonVariants.forgeClasses({ variant, color, size, roundness }), className)}
 	{...props}
 >
 	{#if icon}
