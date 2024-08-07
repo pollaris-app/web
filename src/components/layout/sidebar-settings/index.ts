@@ -3,8 +3,8 @@ import Root from './sidebar-settings.svelte';
 const CONTENT = [
 	{
 		id: 1,
-		value: 'overview',
-		label: 'Overview',
+		value: 'general',
+		label: 'General',
 		href: function () {
 			return `/dashboard/settings`;
 		}
