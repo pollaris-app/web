@@ -1,5 +1,5 @@
 import Root from './dropdown.svelte';
-import { Item } from './elements';
+import { Item, Group, Separator } from './elements';
 
 import type { Snippet } from 'svelte';
 import type { Builder, DropdownMenuProps } from 'bits-ui';
@@ -10,4 +10,4 @@ type Props = DropdownMenuProps & {
 	class?: string;
 };
 
-export { Root, Item, type Props as DropdownProps };
+export { Root, Item, Group, Separator, type Props as DropdownProps };

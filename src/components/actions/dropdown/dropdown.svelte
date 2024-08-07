@@ -11,7 +11,7 @@
 		{@render trigger({ builder })}
 	</DropdownMenu.Trigger>
 
-	<DropdownMenu.Content class="w:100% max-w:256 r:16 outline:2|solid|base-400 bg:base-200 p:16">
+	<DropdownMenu.Content class="w:100% max-w:256 r:16 outline:2|solid|base-400 bg:base-200">
 		{@render children()}
 	</DropdownMenu.Content>
 </DropdownMenu.Root>
