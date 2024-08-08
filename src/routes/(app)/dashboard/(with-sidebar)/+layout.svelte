@@ -12,13 +12,13 @@
 	let { children, data }: DashboardLayoutProps = $props();
 </script>
 
-<div class="bg:base-100 min-h:100dvh flex flex:col gap:24 p:16">
+<div class="bg:base-100 min-h:100dvh flex flex:col gap:16 p:16">
 	<Header />
 
 	<div class="flex gap:24">
 		<Sidebar {data} />
 
-		<main class="bg:base-200 w:100% r:16 p:24">
+		<main class="bg:base-200 w:100% r:16">
 			{@render children()}
 		</main>
 	</div>

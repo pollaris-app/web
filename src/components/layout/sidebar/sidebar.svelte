@@ -27,7 +27,7 @@
 	const { form: formData, enhance } = form;
 </script>
 
-<div class="flex flex:col max-w:52 gap:32 h:calc(100dvh-96)">
+<div class="flex flex:col max-w:52 gap:32 h:calc(100dvh-80)">
 	<nav class="flex flex:col gap:16 h:100%">
 		<Dialog
 			bind:openState={dialogOpen}

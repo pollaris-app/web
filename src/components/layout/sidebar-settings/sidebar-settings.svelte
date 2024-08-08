@@ -3,7 +3,7 @@
 	import { CONTENT } from '.';
 </script>
 
-<nav class="flex flex:col gap-y:16 bg:base-200 max-w:256">
+<nav class="flex flex:col gap-y:16 bg:base-200 max-w:256 py:24">
 	<h2 class="color:white font:bold font:24">Settings</h2>
 
 	<label for="search" class="rel">

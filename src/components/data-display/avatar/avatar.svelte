@@ -6,7 +6,7 @@
 	let { class: className, image, fallback, ...props }: AvatarProps = $props();
 </script>
 
-<Avatar.Root class={cn(className, 'h:40 w:40')} {...props}>
+<Avatar.Root class={cn(className, 'h:32 w:32')} {...props}>
 	<Avatar.Image {...image} class="r:100%" />
 	<Avatar.Fallback class="r:100%">
 		{fallback}

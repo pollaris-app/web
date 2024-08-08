@@ -4,8 +4,8 @@
 	let { children } = $props();
 </script>
 
-<div>
+<div class="flex gap:32 pl:24">
 	<SidebarSettings />
 
-	{@render children()}
+	<div class="w:100% p:16 min-h:calc(100dvh-80)">{@render children()}</div>
 </div>
