@@ -1,0 +1,50 @@
+<script lang="ts">
+	import { RadioGroup } from 'bits-ui';
+	import { imageRadioGroupIndicatorVariants, type ImageRadioGroupProps } from '.';
+	import { Control, Description, Label } from 'formsnap';
+	import { Check } from 'lucide-svelte';
+	import { cn } from '@kurasu/variants';
+
+	let { value = $bindable(), choices, indicator, ...props }: ImageRadioGroupProps = $props();
+</script>
+
+<RadioGroup.Root bind:value {...props} class="flex gap:16 ai:center">
+	{#each choices as choice}
+		<Control let:attrs>
+			<!-- Hidden Input for form handling -->
+			<RadioGroup.Input {...attrs} />
+
+			<!-- Visible Input -->
+			<RadioGroup.Item value={choice.value} class="rel flex flex:col gap:8">
+				<img
+					alt={choice.image.alt}
+					src={choice.image.src}
+					class={cn('r:16 max-h:128 w:100% obj:cover video', {
+						['outline:2|solid|accent outline-offset:2']: value === choice.value
+					})}
+				/>
+
+				<div class="flex flex:col ai:start">
+					<Label class="color:primary f:24 f:semibold ls:0.5">{choice.label}</Label>
+
+					{#if choice.description}
+						<Description class="color:neutral">{choice.description}</Description>
+					{/if}
+				</div>
+
+				{#if value === choice.value}
+					<RadioGroup.ItemIndicator
+						{...attrs}
+						{...indicator}
+						class={cn(
+							imageRadioGroupIndicatorVariants.forgeClasses({ position: indicator?.position }),
+							indicator?.class
+						)}
+					>
+						<Check size={16} strokeWidth={3} />
+					</RadioGroup.ItemIndicator>
+				{/if}
+			</RadioGroup.Item>
+		</Control>
+	{/each}
+</RadioGroup.Root>
