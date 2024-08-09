@@ -6,6 +6,7 @@
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import type { PageData } from './$types';
 	import { Button } from '$components/actions/button';
+	import { Separator } from '$components/layout/separator';
 
 	let { data }: { data: PageData } = $props();
 
@@ -17,16 +18,24 @@
 </script>
 
 <div class="flex flex:col gap:32">
-	<h1 class="color:white f:32 f:bold">Appearance</h1>
+	<div class="flex flex:col gap:8">
+		<h1 class="color:white f:32 f:bold">Appearance</h1>
+		<p class="color:neutral f:18">
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique voluptatum numquam, magni
+			accusantium amet ducimus nobis at veniam in fuga.
+		</p>
+	</div>
 
-	<section class="flex gap:32">
-		<div class="flex flex:col min-w:196">
-			<h2 class="color:primary f:18">Interface Theme</h2>
-			<p class="color:neutral">Select your UI theme.</p>
-		</div>
+	<form method="POST" use:enhance class="flex flex:col gap:16">
+		<Separator />
 
-		<div>
-			<form method="POST" use:enhance class="flex flex:col gap:16">
+		<section class="flex gap:32 py:16">
+			<div class="flex flex:col min-w:196">
+				<h2 class="color:primary f:18">Interface Theme</h2>
+				<p class="color:neutral">Select your UI theme.</p>
+			</div>
+
+			<div>
 				<Fieldset {form} name="test">
 					<ImageRadioGroup
 						orientation="horizontal"
@@ -54,10 +63,15 @@
 					/>
 				</Fieldset>
 
-				<Button size="small" class="w:max place-self:end">Save</Button>
-
 				<!-- <SuperDebug data={$formData} /> -->
-			</form>
+			</div>
+		</section>
+
+		<Separator />
+
+		<div class="place-self:end flex gap:8">
+			<Button size="small" color="secondary">Cancel</Button>
+			<Button size="small" class="">Save changes</Button>
 		</div>
-	</section>
+	</form>
 </div>
