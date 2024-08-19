@@ -13,7 +13,7 @@ type Choice = {
 };
 
 const indicatorVariants = new Variants({
-	base: 'flex ai:center jc:center w:24 h:24 bg:accent fg:white b:1|solid|base-300/.15 r:100% abs',
+	base: 'flex ai:center jc:center w:24 h:24 bg:primary fg:secondary b:1|solid|base-300/.15 r:100% abs',
 	variants: {
 		position: {
 			'top-left': 'top:8 left:8',
