@@ -18,8 +18,12 @@
 
 	<ul class="flex flex:col gap-y:4 font:semibold letter-spacing:0.5 cursor:pointer">
 		{#each CONTENT as item}
-			<li class="color:neutral color:white:hover bg:base-300:hover px:16 py:12 r:16">
-				<a href={item.href()}>{item.label}</a>
+			<li class="flex">
+				<a
+					href={item.href()}
+					class="w:100% px:16 py:12 r:16 color:neutral color:white:hover bg:base-300:hover"
+					>{item.label}</a
+				>
 			</li>
 		{/each}
 	</ul>
