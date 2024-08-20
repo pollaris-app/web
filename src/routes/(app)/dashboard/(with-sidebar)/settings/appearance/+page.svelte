@@ -1,20 +1,51 @@
 <script lang="ts">
 	import { ImageRadioGroup } from '$components/data-input/image-radio-group';
-	import { testSchema } from '$lib/zod/schemas';
+	import { appearanceSchema } from '$lib/zod/schemas';
 	import { Fieldset } from 'formsnap';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import type { PageData } from './$types';
 	import { Button } from '$components/actions/button';
 	import { Separator } from '$components/layout/separator';
+	import { SettingsSection } from '$components/layout/settings/section';
 
 	let { data }: { data: PageData } = $props();
 
 	const form = superForm(data.form, {
-		validators: zodClient(testSchema)
+		validators: zodClient(appearanceSchema)
 	});
 
 	const { form: formData, enhance } = form;
+
+	const THEMES = [
+		{
+			value: 'system',
+			label: 'System',
+			image: {
+				src: 'https://i.imgur.com/MdPOmFe.png',
+				alt: 'system-theme'
+			},
+			description: 'Make your system automatically control the theme.'
+		},
+		{
+			value: 'light',
+			label: 'Light',
+			image: {
+				src: 'https://i.imgur.com/MdPOmFe.png',
+				alt: 'light-theme'
+			},
+			description: 'Best to use during daylight.'
+		},
+		{
+			value: 'dark',
+			label: 'Dark',
+			image: {
+				src: 'https://i.imgur.com/MdPOmFe.png',
+				alt: 'dark-theme'
+			},
+			description: 'Less straining to your eyes.'
+		}
+	];
 </script>
 
 <div class="flex flex:col gap:32">
@@ -27,45 +58,13 @@
 	</div>
 
 	<form method="POST" use:enhance class="flex flex:col gap:16">
-		<Separator />
-
-		<section class="flex gap:32 py:16">
-			<div class="flex flex:col min-w:196">
-				<h2 class="color:primary f:18">Interface Theme</h2>
-				<p class="color:neutral">Select your UI theme.</p>
-			</div>
-
-			<div>
-				<Fieldset {form} name="test">
-					<ImageRadioGroup
-						orientation="horizontal"
-						choices={[
-							{
-								value: 'test',
-								label: 'test',
-								image: {
-									src: 'https://i.imgur.com/MdPOmFe.png',
-									alt: 'face'
-								},
-								description: 'testdesc'
-							},
-							{
-								value: 'test2',
-								label: 'test2',
-								image: {
-									src: 'https://i.imgur.com/MdPOmFe.png',
-									alt: 'face'
-								},
-								description: 'test2desc'
-							}
-						]}
-						bind:value={$formData.test}
-					/>
-				</Fieldset>
-
-				<!-- <SuperDebug data={$formData} /> -->
-			</div>
-		</section>
+		<SettingsSection
+			{form}
+			fieldName="theme"
+			legend={{ title: 'Interface Theme', description: 'Select your UI theme.' }}
+		>
+			<ImageRadioGroup orientation="horizontal" choices={THEMES} bind:value={$formData.theme} />
+		</SettingsSection>
 
 		<Separator />
 

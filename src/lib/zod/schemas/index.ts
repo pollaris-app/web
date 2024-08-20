@@ -7,8 +7,8 @@ export const createNewDialogSchema = z.object({
 	type: z.enum(choiceValues).default('poll')
 });
 
-const testValues = ['test', 'test2'] as const;
+const themeValues = ['system', 'light', 'dark'] as const;
 
-export const testSchema = z.object({
-	test: z.enum(testValues).default('test')
+export const appearanceSchema = z.object({
+	theme: z.enum(themeValues).default('system')
 });
