@@ -8,14 +8,17 @@
 	let { value = $bindable(), choices, indicator, ...props }: ImageRadioGroupProps = $props();
 </script>
 
-<RadioGroup.Root bind:value {...props} class="flex gap:16 ai:center ">
+<RadioGroup.Root bind:value {...props} class="flex gap:16 ai:start ">
 	{#each choices as choice}
 		<Control let:attrs>
 			<!-- Hidden Input for form handling -->
 			<RadioGroup.Input {...attrs} />
 
 			<!-- Visible Input -->
-			<RadioGroup.Item value={choice.value} class="rel flex flex:col gap:8 cursor:pointer">
+			<RadioGroup.Item
+				value={choice.value}
+				class="rel flex flex:col gap:8 cursor:pointer max-w:224"
+			>
 				<img
 					alt={choice.image.alt}
 					src={choice.image.src}
@@ -28,7 +31,7 @@
 					<Label class="color:primary f:24 f:semibold ls:0.5 cursor:pointer">{choice.label}</Label>
 
 					{#if choice.description}
-						<Description class="color:neutral">{choice.description}</Description>
+						<Description class="color:neutral text:start">{choice.description}</Description>
 					{/if}
 				</div>
 
