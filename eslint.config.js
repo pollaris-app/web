@@ -11,12 +11,16 @@ export default [
 	...svelte.configs['flat/recommended'],
 	prettier,
 	...svelte.configs['flat/prettier'],
+
 	{
 		languageOptions: {
 			globals: {
 				...globals.browser,
 				...globals.node
 			}
+		},
+		rules: {
+			'@typescript-eslint/no-explicit-any': 'off'
 		}
 	},
 	{
