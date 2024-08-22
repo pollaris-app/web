@@ -9,6 +9,24 @@ export const createNewDialogSchema = z.object({
 
 const themeValues = ['system', 'light', 'dark'] as const;
 
+export const ACCENTS = [
+	{
+		value: 'red',
+		label: 'Red'
+	},
+	{
+		value: 'blue',
+		label: 'Blue'
+	}
+] as const;
+
+const accentEnum = Object.fromEntries(
+	ACCENTS.map((accent) => [accent.value.toUpperCase(), accent.value])
+) as {
+	[key: string]: (typeof ACCENTS)[number]['value'];
+};
+
 export const appearanceSchema = z.object({
-	theme: z.enum(themeValues).default('system')
+	theme: z.enum(themeValues).default('system'),
+	accent: z.array(z.nativeEnum(accentEnum)).default(['blue'])
 });

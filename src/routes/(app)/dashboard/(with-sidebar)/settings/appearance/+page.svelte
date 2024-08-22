@@ -8,6 +8,7 @@
 	import { Button } from '$components/actions/button';
 	import { Separator } from '$components/layout/separator';
 	import { SettingsSection } from '$components/layout/settings/section';
+	import { Select } from '$components/data-input/select';
 
 	let { data }: { data: PageData } = $props();
 
@@ -46,6 +47,17 @@
 			description: 'Less straining to your eyes.'
 		}
 	];
+
+	const ACCENTS = [
+		{
+			value: 'red',
+			label: 'Red'
+		},
+		{
+			value: 'blue',
+			label: 'Blue'
+		}
+	];
 </script>
 
 <div class="flex flex:col gap:32">
@@ -66,11 +78,21 @@
 			<ImageRadioGroup orientation="horizontal" choices={THEMES} bind:value={$formData.theme} />
 		</SettingsSection>
 
+		<SettingsSection
+			{form}
+			fieldName="theme"
+			legend={{ title: 'Interface Theme', description: 'Select your UI theme.' }}
+		>
+			<Select multiple bind:data={$formData.accent} items={ACCENTS} placeholder="Test your stuff" />
+		</SettingsSection>
+
 		<Separator />
 
 		<div class="place-self:end flex gap:8">
 			<Button size="small" color="secondary">Cancel</Button>
 			<Button size="small" class="">Save changes</Button>
 		</div>
+
+		<SuperDebug data={$formData} />
 	</form>
 </div>
