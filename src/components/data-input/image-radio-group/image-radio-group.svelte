@@ -17,7 +17,7 @@
 			<!-- Visible Input -->
 			<RadioGroup.Item
 				value={choice.value}
-				class="rel flex flex:col gap:8 cursor:pointer max-w:224"
+				class="rel flex flex:1 flex:col gap:8 cursor:pointer min-w:96 max-w:224"
 			>
 				<img
 					alt={choice.image.alt}
