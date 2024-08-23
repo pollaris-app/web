@@ -1,3 +1,4 @@
+import { ACCENTS } from '$lib/utils/constants/settings';
 import { z } from 'zod';
 
 const choiceValues = ['poll', 'quiz'] as const;
@@ -8,17 +9,6 @@ export const createNewDialogSchema = z.object({
 });
 
 const themeValues = ['system', 'light', 'dark'] as const;
-
-export const ACCENTS = [
-	{
-		value: 'red',
-		label: 'Red'
-	},
-	{
-		value: 'blue',
-		label: 'Blue'
-	}
-] as const;
 
 const accentEnum = Object.fromEntries(
 	ACCENTS.map((accent) => [accent.value.toUpperCase(), accent.value])
