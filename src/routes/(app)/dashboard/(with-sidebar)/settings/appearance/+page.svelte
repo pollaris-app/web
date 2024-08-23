@@ -1,18 +1,15 @@
 <script lang="ts">
-	import { ImageRadioGroup } from '$components/data-input/image-radio-group';
-	import { appearanceSchema } from '$lib/zod/schemas';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { Button } from '$components/actions/button';
+	import { ACCENTS, ACCENTS_DETAILS, THEMES } from '$lib/utils/constants/settings.js';
+	import { SettingsSection } from '$components/layout/settings/section/index.js';
+	import { ImageRadioGroup } from '$components/data-input/image-radio-group/index.js';
 	import { Separator } from '$components/layout/separator';
-	import { SettingsSection } from '$components/layout/settings/section';
+	import { Button } from '$components/actions/button';
+	import { appearanceSchema } from '$lib/zod/schemas/index.js';
 	import { Select } from '$components/data-input/select';
-	import { ACCENTS_DATA, ACCENTS_DETAILS, THEMES } from '$lib/utils/constants/settings';
 
-	import type { PageData } from './$types';
-
-	let { data }: { data: PageData } = $props();
-
+	let { data } = $props();
 	const form = superForm(data.form, {
 		validators: zodClient(appearanceSchema)
 	});
@@ -40,17 +37,10 @@
 
 		<SettingsSection
 			{form}
-			fieldName="accent"
+			fieldName="accents"
 			legend={{ title: 'Interface Theme', description: 'Select your UI theme.' }}
 		>
-			<Select
-				multiple
-				required
-				bind:data={$formData.accent}
-				items={ACCENTS_DATA}
-				details={ACCENTS_DETAILS}
-				placeholder="Test your stuff"
-			/>
+			<Select bind:data={$formData.accents} values={ACCENTS} details={ACCENTS_DETAILS} />
 		</SettingsSection>
 
 		<Separator />
