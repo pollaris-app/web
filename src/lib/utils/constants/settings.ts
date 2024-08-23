@@ -1,29 +1,17 @@
 import { type IconProps } from '$components/icon';
 
-interface Theme {
-	value: string;
-	label: string;
-	image: {
-		src: string;
-		alt: string;
-	};
-	description: string;
-}
-
 export const ACCENTS = {
-	red: 'Red',
 	blue: 'Blue',
+	red: 'Red',
+	green: 'Green',
 	yellow: 'Yellow'
 } as const;
 
 export type Accent = keyof typeof ACCENTS;
 
-export const ACCENTS_DATA = Object.entries(ACCENTS).map(([value, label]) => ({
-	value: value as Accent,
-	label: label as (typeof ACCENTS)[Accent]
-}));
-
-export type AccentData = typeof ACCENTS_DATA;
+export type AccentDetails = {
+	indicator: IconProps;
+};
 
 export const ACCENTS_DETAILS = {
 	red: {
@@ -38,6 +26,12 @@ export const ACCENTS_DETAILS = {
 			class: 'fg:blue'
 		}
 	},
+	green: {
+		indicator: {
+			name: 'squircle',
+			class: 'fg:green'
+		}
+	},
 	yellow: {
 		indicator: {
 			name: 'squircle',
@@ -46,9 +40,15 @@ export const ACCENTS_DETAILS = {
 	}
 } as Record<Accent, AccentDetails>;
 
-export type AccentDetails = {
-	indicator: IconProps;
-};
+interface Theme {
+	value: string;
+	label: string;
+	image: {
+		src: string;
+		alt: string;
+	};
+	description: string;
+}
 
 export const THEMES = [
 	{
