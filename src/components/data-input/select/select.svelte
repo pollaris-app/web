@@ -1,87 +1,82 @@
-<script lang="ts" generics="T extends Accent, M extends boolean">
+<script lang="ts" generics="T extends string | number, M extends boolean">
 	import { Select, type Selected } from 'bits-ui';
-	import { Control, FieldErrors } from 'formsnap';
-	import type { SelectProps } from '.';
+	import { type SelectProps } from '.';
+	import { Control, FieldErrors, Label } from 'formsnap';
 	import { Check, ChevronsUpDown } from 'lucide-svelte';
 	import { Icon, type IconProps } from '$components/icon';
-	import { type Accent } from '$lib/utils/constants/settings';
 
-	let {
-		data = $bindable(),
-		items,
-		details,
-		placeholder,
-		multiple = false as M,
-		...props
-	}: SelectProps<T, M> = $props();
+	let { data = $bindable(), values, details, multiple, ...props }: SelectProps<T, M> = $props();
 
-	let selected = $derived.by(() => {
+	const handlePlaceholder = (placeholder?: string, multiple?: boolean) => {
+		if (placeholder) {
+			return placeholder;
+		}
+
 		if (multiple) {
-			return data.map((itemValue: string) => ({
-				value: itemValue,
-				label: items.find((item) => item.value === itemValue)?.label
-			}));
+			return 'Select your options';
 		}
 
-		const itemValue = data[0];
-		if (itemValue) {
-			return {
-				value: itemValue,
-				label: items.find((item) => item.value === itemValue)?.label
-			};
-		}
+		return 'Select your option';
+	};
 
-		return undefined;
-	}) as [M] extends [true] ? Selected<T>[] | undefined : Selected<T> | undefined;
+	let selected: Selected<T> | Selected<T>[] | undefined = $state(undefined);
+
+	$effect(() => {
+		if (multiple) {
+			selected = data.map((c) => ({ label: values[c], value: c })) as Selected<T>[];
+		} else {
+			selected = { label: values[data[0]], value: data[0] } as Selected<T>;
+		}
+	});
 </script>
 
-{#snippet accentIndicator(props: IconProps)}
-	<Icon {...props} />
+{#snippet accentIndicator(props: IconProps | null)}
+	{#if props}
+		<Icon {...props} />
+	{/if}
 {/snippet}
 
 <Control let:attrs>
 	<Select.Root
-		{selected}
 		{multiple}
-		onSelectedChange={(s) => {
-			if (s) {
+		selected={selected as typeof props.selected}
+		onSelectedChange={(selections) => {
+			if (selections) {
 				if (multiple) {
-					data = (s as Selected<T>[]).map((item: Selected<T>) => item.value as string);
+					data = (selections as Selected<T>[]).map((selection) => selection.value);
 				} else {
-					data = [(s as Selected<T>).value as string];
+					data = [(selections as Selected<T>).value];
 				}
 			} else {
 				data = [];
 			}
 		}}
-		{...props}
 	>
-		{#each data as item}
-			<Select.Input name={attrs.name} value={item} />
+		{#each data as color}
+			<input name={attrs.name} hidden value={color} />
 		{/each}
 
 		<Select.Trigger
 			{...attrs}
 			class="flex ai:center jc:space-between w:256 font:18 py:8 px:12 b:2|solid|base-400 r:16 h:48 color:neutral"
 		>
-			<Select.Value {placeholder} />
+			<Select.Value placeholder={handlePlaceholder(props?.placeholder, multiple)} />
 			<ChevronsUpDown size={16} />
 		</Select.Trigger>
 
 		<Select.Content class="w:100% mt:8 p:4 max-w:256 r:16 outline:2|solid|base-400 bg:base-200">
-			{#each items as item}
+			{#each Object.entries(values) as [value, label]}
 				<Select.Item
-					value={item.value}
-					label={item.label}
-					class="flex gap:8 ai:center jc:start py:8 px:12 r:12 cursor:pointer color:neutral font:medium color:primary:hover bg:base-300:hover"
+					{value}
 					let:isSelected
+					class="flex gap:8 ai:center jc:start py:8 px:12 r:12 cursor:pointer color:neutral font:medium color:primary:hover bg:base-300:hover"
 				>
-					{#if details[item.value]?.indicator}
-						{@render accentIndicator(details[item.value]?.indicator!)}
+					{#if details && details[value]}
+						{@render accentIndicator(details[value].indicator ?? null)}
 					{/if}
 
 					<span>
-						{item.label}
+						{label}
 					</span>
 
 					{#if isSelected}
@@ -91,6 +86,4 @@
 			{/each}
 		</Select.Content>
 	</Select.Root>
-
-	<FieldErrors />
 </Control>
