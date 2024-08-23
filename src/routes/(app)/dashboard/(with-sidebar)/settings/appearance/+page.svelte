@@ -7,7 +7,7 @@
 	import { Separator } from '$components/layout/separator';
 	import { SettingsSection } from '$components/layout/settings/section';
 	import { Select } from '$components/data-input/select';
-	import { ACCENTS, THEMES } from '$lib/utils/constants/settings';
+	import { ACCENTS_DATA, ACCENTS_DETAILS, THEMES } from '$lib/utils/constants/settings';
 
 	import type { PageData } from './$types';
 
@@ -40,10 +40,17 @@
 
 		<SettingsSection
 			{form}
-			fieldName="theme"
+			fieldName="accent"
 			legend={{ title: 'Interface Theme', description: 'Select your UI theme.' }}
 		>
-			<Select required bind:data={$formData.accent} items={ACCENTS} placeholder="Test your stuff" />
+			<Select
+				multiple
+				required
+				bind:data={$formData.accent}
+				items={ACCENTS_DATA}
+				details={ACCENTS_DETAILS}
+				placeholder="Test your stuff"
+			/>
 		</SettingsSection>
 
 		<Separator />

@@ -1,13 +1,15 @@
-<script lang="ts" generics="T, M extends boolean">
+<script lang="ts" generics="T extends Accent, M extends boolean">
 	import { Select, type Selected } from 'bits-ui';
-	import { Control } from 'formsnap';
+	import { Control, FieldErrors } from 'formsnap';
 	import type { SelectProps } from '.';
 	import { Check, ChevronsUpDown } from 'lucide-svelte';
 	import { Icon, type IconProps } from '$components/icon';
+	import { type Accent } from '$lib/utils/constants/settings';
 
 	let {
 		data = $bindable(),
 		items,
+		details,
 		placeholder,
 		multiple = false as M,
 		...props
@@ -54,8 +56,8 @@
 		}}
 		{...props}
 	>
-		{#each items as item}
-			<Select.Input value={item.value} />
+		{#each data as item}
+			<Select.Input name={attrs.name} value={item} />
 		{/each}
 
 		<Select.Trigger
@@ -74,9 +76,10 @@
 					class="flex gap:8 ai:center jc:start py:8 px:12 r:12 cursor:pointer color:neutral font:medium color:primary:hover bg:base-300:hover"
 					let:isSelected
 				>
-					{#if item.indicator}
-						{@render accentIndicator(item.indicator)}
+					{#if details[item.value]?.indicator}
+						{@render accentIndicator(details[item.value]?.indicator!)}
 					{/if}
+
 					<span>
 						{item.label}
 					</span>
@@ -88,4 +91,6 @@
 			{/each}
 		</Select.Content>
 	</Select.Root>
+
+	<FieldErrors />
 </Control>
