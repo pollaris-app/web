@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { Search } from 'lucide-svelte';
+	import { page } from '$app/stores';
 	import { CONTENT } from '.';
+	import { cn } from '@kurasu/variants';
+
+	let pathname = $derived($page.url.pathname);
 </script>
 
 <nav class="flex flex:col gap-y:16 bg:base-200 max-w:256 py:24">
@@ -21,8 +25,9 @@
 			<li class="flex">
 				<a
 					href={item.href()}
-					class="w:100% px:16 py:12 r:16 color:neutral color:white:hover bg:base-300:hover"
-					>{item.label}</a
+					class={cn('w:100% px:16 py:12 r:16 color:neutral color:white:hover bg:base-300:hover', {
+						'bg:base-300': item.href() === pathname
+					})}>{item.label}</a
 				>
 			</li>
 		{/each}
