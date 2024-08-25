@@ -30,7 +30,7 @@
 	});
 </script>
 
-{#snippet accentIndicator(props: IconProps | null)}
+{#snippet indicator(props: IconProps | null)}
 	{#if props}
 		<Icon {...props} />
 	{/if}
@@ -72,7 +72,7 @@
 					class="flex gap:8 ai:center jc:start py:8 px:12 r:12 cursor:pointer color:neutral font:medium color:primary:hover bg:base-300:hover"
 				>
 					{#if details && details[value]}
-						{@render accentIndicator(details[value].indicator ?? null)}
+						{@render indicator(details[value].indicator ?? null)}
 					{/if}
 
 					<span>
