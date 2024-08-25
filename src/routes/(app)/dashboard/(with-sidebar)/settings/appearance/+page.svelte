@@ -1,7 +1,14 @@
 <script lang="ts">
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { ACCENTS, ACCENTS_DETAILS, THEMES } from '$lib/utils/constants/settings.js';
+	import {
+		ACCENTS,
+		ACCENTS_DETAILS,
+		FONT_SIZES,
+		FONT_SIZES_DETAILS,
+		TABLE_VIEWS,
+		THEMES
+	} from '$lib/utils/constants/settings.js';
 	import { SettingsSection } from '$components/layout/settings/section/index.js';
 	import { ImageRadioGroup } from '$components/data-input/image-radio-group/index.js';
 	import { Separator } from '$components/layout/separator';
@@ -30,7 +37,7 @@
 		<SettingsSection
 			{form}
 			fieldName="theme"
-			legend={{ title: 'Interface Theme', description: 'Select your UI theme.' }}
+			legend={{ title: 'Interface Theme', description: 'Select your UI theme' }}
 		>
 			<ImageRadioGroup orientation="horizontal" choices={THEMES} bind:value={$formData.theme} />
 		</SettingsSection>
@@ -38,9 +45,29 @@
 		<SettingsSection
 			{form}
 			fieldName="accents"
-			legend={{ title: 'Interface Theme', description: 'Select your UI theme.' }}
+			legend={{ title: 'Accent Color', description: 'Select your accent color' }}
 		>
 			<Select bind:data={$formData.accents} values={ACCENTS} details={ACCENTS_DETAILS} />
+		</SettingsSection>
+
+		<SettingsSection
+			{form}
+			fieldName="tableView"
+			legend={{ title: 'Table view', description: 'How are tables displayed in the app' }}
+		>
+			<ImageRadioGroup
+				orientation="horizontal"
+				choices={TABLE_VIEWS}
+				bind:value={$formData.tableView}
+			/>
+		</SettingsSection>
+
+		<SettingsSection
+			{form}
+			fieldName="fontSize"
+			legend={{ title: 'Font size', description: 'How big is the font of the app' }}
+		>
+			<Select bind:data={$formData.fontSize} values={FONT_SIZES} details={FONT_SIZES_DETAILS} />
 		</SettingsSection>
 
 		<Separator />

@@ -40,6 +40,18 @@ export const ACCENTS_DETAILS = {
 	}
 } as Record<Accent, AccentDetails>;
 
+export const FONT_SIZES = {
+	small: 'Small',
+	medium: 'Medium',
+	large: 'Large'
+} as const;
+
+export type FontSize = keyof typeof FONT_SIZES;
+
+export type FontSizeDetails = {};
+
+export const FONT_SIZES_DETAILS = {} as Record<FontSize, FontSizeDetails>;
+
 interface Theme {
 	value: string;
 	label: string;
@@ -79,3 +91,24 @@ export const THEMES = [
 		description: 'Less straining to your eyes.'
 	}
 ] as Theme[];
+
+export const TABLE_VIEWS = [
+	{
+		value: 'default',
+		label: 'Default',
+		description: 'The default view for the table.',
+		image: {
+			src: 'https://i.imgur.com/MdPOmFe.png',
+			alt: 'default-view'
+		}
+	},
+	{
+		value: 'compact',
+		label: 'Compact',
+		description: 'Fit more data on the screen.',
+		image: {
+			src: 'https://i.imgur.com/MdPOmFe.png',
+			alt: 'compact-view'
+		}
+	}
+];
