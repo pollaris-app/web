@@ -29,9 +29,11 @@ const indicatorVariants = new Variants({
 
 type IndicatorPosition = keyof VariantsType<typeof indicatorVariants.getVariants>['position'];
 
+type ChoiceValue = Choice['value'];
+
 type Props = RadioGroupProps & {
 	choices: Choice[];
-	value: string;
+	value: ChoiceValue;
 	indicator?: {
 		class?: string;
 		position?: IndicatorPosition;
