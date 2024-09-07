@@ -1,11 +1,12 @@
-<script lang="ts">
+<script lang="ts" generics="T extends Choice[]">
 	import { RadioGroup } from 'bits-ui';
 	import { imageRadioGroupIndicatorVariants, type ImageRadioGroupProps } from '.';
 	import { Control, Description, Label } from 'formsnap';
 	import { Check } from 'lucide-svelte';
 	import { cn } from '@kurasu/variants';
+	import { type Choice } from '$lib/utils/types/choices';
 
-	let { value = $bindable(), choices, indicator, ...props }: ImageRadioGroupProps = $props();
+	let { value = $bindable(), choices, indicator, ...props }: ImageRadioGroupProps<T> = $props();
 </script>
 
 <RadioGroup.Root bind:value {...props} class="flex gap:16 ai:start ">

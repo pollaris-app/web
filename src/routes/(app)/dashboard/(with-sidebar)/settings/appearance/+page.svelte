@@ -39,7 +39,11 @@
 			fieldName="theme"
 			legend={{ title: 'Interface Theme', description: 'Select your UI theme' }}
 		>
-			<ImageRadioGroup orientation="horizontal" choices={THEMES} bind:value={$formData.theme} />
+			<ImageRadioGroup
+				orientation="horizontal"
+				choices={THEMES}
+				bind:value={$formData.theme as string}
+			/>
 		</SettingsSection>
 
 		<SettingsSection
@@ -58,7 +62,7 @@
 			<ImageRadioGroup
 				orientation="horizontal"
 				choices={TABLE_VIEWS}
-				bind:value={$formData.tableView}
+				bind:value={$formData.tableView as string}
 			/>
 		</SettingsSection>
 
