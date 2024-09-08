@@ -5,7 +5,7 @@ import type { Icon } from 'lucide-svelte';
 import type { ButtonProps } from 'bits-ui';
 
 const variants = new Variants({
-	base: 'flex ai:center gap:8 b:2 b:solid cursor:pointer font:semibold',
+	base: 'flex ai:center gap:8 b:2 b:solid cursor:pointer font:semibold cursor:not-allowed[disabled]',
 	variants: {
 		variant: {
 			default: 'b:transparent',
