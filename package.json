@@ -24,6 +24,7 @@
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@types/bun": "^1.1.6",
     "@types/eslint": "^8.56.7",
+    "@zxcvbn-ts/core": "^3.0.4",
     "bits-ui": "^0.21.12",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.1.0",
@@ -47,6 +48,7 @@
     "formsnap": "^1.0.1",
     "lucide-svelte": "^0.408.0",
     "sveltekit-superforms": "^2.16.1",
+    "valibot": "^0.41.0",
     "zod": "^3.23.8"
   }
 }
