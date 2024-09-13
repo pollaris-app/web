@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import '$styles/global.css';
 	import '$styles/fonts.css';
+	import Toaster from '$components/data-display/toaster/toaster.svelte';
 
 	let CSSRuntimeProvider = $state(Fragment as any);
 
@@ -15,4 +16,6 @@
 
 <svelte:component this={CSSRuntimeProvider} config={import('../../master.css')}>
 	{@render children()}
+
+	<Toaster />
 </svelte:component>
