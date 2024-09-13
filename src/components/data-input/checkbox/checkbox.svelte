@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Checkbox } from 'bits-ui';
 	import type { CheckboxProps } from '.';
 	import { Check } from 'lucide-svelte';
 	import { Control, Description, FieldErrors, Label } from 'formsnap';
@@ -7,6 +6,7 @@
 	let { checked = $bindable(), label, description, ...props }: CheckboxProps = $props();
 </script>
 
+<!-- NOTICE: TO MAKE THIS FULLY WORKING INPUT NEEDS TO BE INSIDE OF THE BUTTON, BUT AS OF NOW IT'S IMPOSSIBLE MAKING THIS COMPONENT NOT FULLY WORKING WITH FORMSNAP -->
 <Control let:attrs>
 	<div class="flex ai:center gap:8">
 		<button
@@ -14,13 +14,19 @@
 			onclick={() => {
 				checked = !checked;
 			}}
+			role="checkbox"
+			aria-checked={checked}
+			{...props}
+			{...attrs}
 		>
 			{#if checked}
 				<Check size={18} />
 			{/if}
+
+			<!-- <input type="hidden" name={attrs.name} /> -->
 		</button>
 
-		<input type="checkbox" {...attrs} bind:checked hidden />
+		<input type="hidden" name={attrs.name} />
 
 		{#if label}
 			<Label class="f:18">
