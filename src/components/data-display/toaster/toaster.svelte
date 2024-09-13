@@ -9,18 +9,15 @@
 		elements,
 		states: { toasts },
 		actions: { portal },
-		helpers,
-		options
+		helpers
 	} = createToaster<ToastData>();
 
 	export const addToast = helpers.addToast;
 </script>
 
 <script lang="ts">
-	import { createProgress, createToaster, melt } from '@melt-ui/svelte';
-	import { CircleAlert, CircleCheck, Info, TriangleAlert, X } from 'lucide-svelte';
+	import { createToaster } from '@melt-ui/svelte';
 	import { flip } from 'svelte/animate';
-	import { writable } from 'svelte/store';
 	import { Toast } from './toast';
 </script>
 

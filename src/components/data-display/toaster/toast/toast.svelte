@@ -84,7 +84,7 @@
 
 		<div use:melt={$progress} class="abs w:376 h:6 bg:transparent bottom:0 right:0 r:3">
 			<div
-				class="h:100% w:100% bg:base-300 r:3"
+				class={`h:100% w:100% bg:${data.status} r:3`}
 				style={`transform: translateX(-${100 - (100 * ($percentage ?? 0)) / ($max ?? 1)}%)`}
 			></div>
 		</div>
