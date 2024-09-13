@@ -4,6 +4,7 @@
 	import '$styles/global.css';
 	import '$styles/fonts.css';
 	import Toaster from '$components/data-display/toaster/toaster.svelte';
+	import { Popouter } from '$components/data-display/popouter';
 
 	let CSSRuntimeProvider = $state(Fragment as any);
 
@@ -17,5 +18,6 @@
 <svelte:component this={CSSRuntimeProvider} config={import('../../master.css')}>
 	{@render children()}
 
+	<Popouter />
 	<Toaster />
 </svelte:component>
