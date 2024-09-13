@@ -8,6 +8,8 @@
 	let { children }: Props = $props();
 </script>
 
-<main class="bg:base-50 fg:neutral w:100% h:100dvh flex p:32 gap:32">
-	{@render children()}
+<main class="bg:base-50 fg:neutral w:100% h:100dvh p:32">
+	<div class="max-w:1440 mx:auto flex gap:32 h:100%">
+		{@render children()}
+	</div>
 </main>
