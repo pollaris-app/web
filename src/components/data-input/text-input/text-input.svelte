@@ -26,7 +26,7 @@
 			{type}
 			{...props}
 			{...attrs}
-			class="flex ai:center jc:space-between w:256 font:18 py:8 px:12 b:2|solid|base-400 r:16 h:48 color:neutral"
+			class="flex ai:center jc:space-between w:100% font:18 py:8 px:12 b:2|solid|base-400 r:16 h:48 color:neutral"
 		/>
 	</div>
 </Control>
