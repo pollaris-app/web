@@ -60,7 +60,7 @@
 				{...attrs}
 			/>
 
-			<Toggle.Root bind:pressed={unlocked} class="abs right:12 top:14">
+			<Toggle.Root bind:pressed={unlocked} class="abs right:12 top:14 cursor:pointer">
 				{#if unlocked}
 					<EyeOff size={20} />
 				{:else}
