@@ -14,26 +14,28 @@ export const actions = {
 		const form = await superValidate(request, valibot(signUpSchema));
 
 		if (!form.valid) {
+			console.log('ajaja');
 			return fail(400, { form });
 		}
 
-		const emailAvailabilityCheck = await fetch(
-			`http://localhost:3000/api/v1/users/${form.data.email}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}
-		);
+		const signUp = await fetch('http://localhost:3000/api/v1/auth/signup', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				email: form.data.email,
+				password: form.data.password
+			})
+		});
 
-		const response = await emailAvailabilityCheck.json().then((e) => e);
+		const response = await signUp.json().then((e) => e);
 
-		if (!emailAvailabilityCheck.ok) {
+		if (!signUp.ok) {
 			setError(form, 'email', response.message);
 
 			return message(form, response, {
-				status: emailAvailabilityCheck.status as ErrorStatus
+				status: signUp.status as ErrorStatus
 			});
 		}
 
