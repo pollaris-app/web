@@ -20,7 +20,7 @@
 			{/if}
 		</button>
 
-		<input type="checkbox" name={attrs.name} bind:checked bind:this={inputEl} hidden />
+		<input type="checkbox" {...attrs} bind:checked bind:this={inputEl} hidden />
 
 		{#if label}
 			<Label class="f:18">
