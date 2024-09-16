@@ -11,6 +11,7 @@
 <Control let:attrs>
 	<div class="flex ai:center gap:8">
 		<button
+			type="button"
 			onclick={() => inputEl.click()}
 			class="flex ai:center jc:center font:18 b:2|solid|base-400 r:12 w:32 h:32 color:neutral"
 		>
