@@ -12,6 +12,7 @@ interface Data {
 	description: string;
 	status: 'success' | 'error' | 'warning' | 'info';
 	actions?: Action[];
+	onClose?: () => void;
 }
 
 export { Root as Popouter, type Data as PopouterData, type Action as PopouterAction };

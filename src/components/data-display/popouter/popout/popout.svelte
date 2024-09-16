@@ -8,6 +8,7 @@
 	import { X } from 'lucide-svelte';
 	import { Button } from '$components/actions/button';
 	import { writable } from 'svelte/store';
+	import { onDestroy } from 'svelte';
 
 	let { elements, popout }: PopoutProps = $props();
 
@@ -35,6 +36,12 @@
 
 		return () => cancelAnimationFrame(frame);
 	});
+
+	onDestroy(() => {
+		if (data.onClose) {
+			data.onClose();
+		}
+	});
 </script>
 
 <div
@@ -52,7 +59,6 @@
 		</p>
 	</div>
 
-	<!-- <div class="flex flex:col gap:8"> -->
 	{#if data.actions}
 		<div class="flex gap:8 as:end">
 			{#each data.actions as action}
@@ -62,7 +68,6 @@
 			{/each}
 		</div>
 	{/if}
-	<!-- </div> -->
 
 	<button
 		use:melt={$close(id)}
