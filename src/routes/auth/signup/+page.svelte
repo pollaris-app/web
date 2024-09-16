@@ -10,6 +10,8 @@
 	import { PasswordInput } from '$components/data-input/password-input';
 	import { Checkbox } from '$components/data-input/checkbox';
 	import { addPopout } from '$components/data-display/popouter/popouter.svelte';
+	import { LoaderCircle } from 'lucide-svelte';
+	import { goto } from '$app/navigation';
 
 	interface Props {
 		data: PageData;
@@ -25,24 +27,42 @@
 					data: {
 						title: 'Success',
 						description: 'You will be redirected soon...',
-						status: 'success'
+						status: 'success',
+						actions: [
+							{
+								label: 'Redirect Now',
+								handler: () => {
+									goto('/auth/email-verification/token');
+								}
+							}
+						],
+						onClose: () => {
+							goto('/auth/email-verification/token');
+						}
 					},
 					type: 'foreground',
-					closeDelay: 0
+					closeDelay: 3000
 				});
-			} else {
+			}
+
+			if (result.type === 'failure') {
 				addToast({
 					data: {
-						title: await result.data.form.message.name,
-						description: await result.data.form.message.message,
+						title: await result.data?.form.message.name,
+						description: await result.data?.form.message.message,
 						status: 'error'
 					}
 				});
 			}
-		}
+		},
+		onError: ({ result }) => {
+			console.error(result);
+		},
+		delayMs: 500,
+		timeoutMs: 5000
 	});
 
-	const { form: formData, enhance, errors, allErrors, message } = form;
+	const { form: formData, enhance, errors, allErrors, message, delayed, timeout } = form;
 </script>
 
 <div class="flex:2">
@@ -96,9 +116,13 @@
 				/>
 			</Field>
 
-			<Button type="submit" disabled={$allErrors.length > 0} class="w:100% jc:center"
-				>Sign Up</Button
-			>
+			<Button type="submit" disabled={$allErrors.length > 0} class="w:100% jc:center">
+				{#if $delayed}
+					<LoaderCircle class="@rotate|1s|infinite|ease-in-out" />
+				{:else}
+					Sign Up
+				{/if}
+			</Button>
 		</form>
 
 		<div
@@ -108,7 +132,7 @@
 		</div>
 
 		<div class="flex gap:8">
-			<Button color="base-300" class="jc:center flex:1">
+			<Button color="base-300" class="jc:center flex:1" disabled>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					x="0px"
@@ -135,7 +159,7 @@
 				Signup with Google
 			</Button>
 
-			<Button color="base-300" class="jc:center flex:1">
+			<Button color="base-300" class="jc:center flex:1" disabled>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					x="0px"

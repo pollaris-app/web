@@ -14,7 +14,6 @@ export const actions = {
 		const form = await superValidate(request, valibot(signUpSchema));
 
 		if (!form.valid) {
-			console.log('ajaja');
 			return fail(400, { form });
 		}
 
