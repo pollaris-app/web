@@ -1,10 +1,17 @@
 <script lang="ts">
-	import type { CheckboxProps } from '.';
+	import { CheckboxVariants, handleCheckboxIconSize, type CheckboxProps } from '.';
 	import { Check } from 'lucide-svelte';
 	import { Control, Description, FieldErrors, Label } from 'formsnap';
-	import { createCheckbox, melt } from '@melt-ui/svelte';
+	import { cn } from '@kurasu/variants';
 
-	let { checked = $bindable(), label, description, ...props }: CheckboxProps = $props();
+	let {
+		checked = $bindable(),
+		label,
+		description,
+		size,
+		class: className,
+		...props
+	}: CheckboxProps = $props();
 	let inputEl: HTMLInputElement;
 </script>
 
@@ -13,14 +20,14 @@
 		<button
 			type="button"
 			onclick={() => inputEl.click()}
-			class="flex ai:center jc:center font:18 b:2|solid|base-400 r:12 w:32 h:32 color:neutral"
+			class={cn(CheckboxVariants.forgeClasses({ size }), className)}
 		>
 			{#if checked}
-				<Check size={24} />
+				<Check size={handleCheckboxIconSize(size ?? 'md')} />
 			{/if}
 		</button>
 
-		<input type="checkbox" {...attrs} bind:checked bind:this={inputEl} hidden />
+		<input type="checkbox" bind:checked bind:this={inputEl} {...attrs} {...props} hidden />
 
 		{#if label}
 			<Label class="f:18">
