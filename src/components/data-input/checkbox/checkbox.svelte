@@ -30,7 +30,7 @@
 		<input type="checkbox" bind:checked bind:this={inputEl} {...attrs} {...props} hidden />
 
 		{#if label}
-			<Label class="f:18">
+			<Label>
 				{label}
 			</Label>
 		{/if}
