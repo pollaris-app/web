@@ -53,7 +53,7 @@
 		<div class="rel">
 			<input
 				bind:value={data}
-				placeholder={placeholder ?? null}
+				placeholder={placeholder ?? 'Enter your password'}
 				type={unlocked ? 'text' : 'password'}
 				class="flex ai:center jc:space-between w:100% font:18 py:8 pl:12 pr:40 b:2|solid|base-400 r:16 h:48 color:neutral"
 				{...props}
