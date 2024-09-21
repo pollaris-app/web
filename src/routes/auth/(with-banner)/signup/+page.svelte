@@ -34,12 +34,12 @@
 							{
 								label: 'Redirect Now',
 								handler: () => {
-									goto('/auth/email-verification/token');
+									goto('/auth/email-verification');
 								}
 							}
 						],
 						onClose: () => {
-							goto('/auth/email-verification/token');
+							goto('/auth/email-verification');
 						}
 					},
 					type: 'foreground',
