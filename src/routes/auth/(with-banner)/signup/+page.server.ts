@@ -31,7 +31,7 @@ export const actions = {
 		const response = await signUp.json().then((e) => e);
 
 		if (!signUp.ok) {
-			setError(form, 'email', response.message);
+			setError(form, response.message);
 
 			return message(form, response, {
 				status: signUp.status as ErrorStatus
