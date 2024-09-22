@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { passwordResetSchema } from '$lib/zod/schemas/auth/password-reset';
-	import { superForm } from 'sveltekit-superforms';
+	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import { Field } from 'formsnap';
 	import { PasswordInput } from '$components/data-input/password-input';
 	import { Button } from '$components/actions/button';
 
 	import type { PageData } from './$types';
+	import { LoaderCircle } from 'lucide-svelte';
 
 	interface Props {
 		data: PageData;
@@ -16,14 +17,18 @@
 
 	const form = superForm(data.form, {
 		validators: valibotClient(passwordResetSchema),
+		onSubmit: ({ formData }) => {
+			formData.set('userId', data.userId);
+			formData.set('token', data.token);
+		},
 		delayMs: 500,
 		timeoutMs: 5000
 	});
 
-	const { form: formData, enhance, delayed } = form;
+	const { form: formData, errors, message, enhance, delayed } = form;
 </script>
 
-<form action="">
+<form method="POST" use:enhance>
 	<Field {form} name="password">
 		<PasswordInput bind:data={$formData.password} scoreBar />
 	</Field>
@@ -32,5 +37,13 @@
 		<PasswordInput bind:data={$formData.confirmPassword} />
 	</Field>
 
-	<Button>Submit</Button>
+	<Button>
+		{#if $delayed}
+			<LoaderCircle />
+		{:else}
+			Reset Password
+		{/if}
+	</Button>
 </form>
+
+<SuperDebug data={{ $formData, $errors, $message }} />

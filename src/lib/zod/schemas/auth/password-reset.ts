@@ -3,6 +3,8 @@ import { EmailSchema, StrictPasswordSchema } from './common';
 
 export const passwordResetSchema = v.pipe(
 	v.object({
+		userId: v.number(),
+		token: v.string(),
 		password: StrictPasswordSchema,
 		confirmPassword: v.string()
 	}),
