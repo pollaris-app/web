@@ -2,11 +2,28 @@ import {
 	emailVerificationSchema,
 	resendEmailVerificationSchema
 } from '$lib/zod/schemas/auth/email-verification';
-import type { Actions } from '@sveltejs/kit';
+import { error, redirect, type Actions } from '@sveltejs/kit';
 import { fail, message, setError, superValidate, type ErrorStatus } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
 
-export const load = async () => {
+export const load = async ({ params }) => {
+	const user = await fetch(`http://localhost:3000/api/v1/users/id/${params.userId}`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+
+	const userResponse = await user.json().then((e) => e);
+
+	if (!user.ok) {
+		throw error(user.status, userResponse.message);
+	}
+
+	if (userResponse.data.email_verified) {
+		throw error(400, 'Email already verified');
+	}
+
 	const activateForm = await superValidate(valibot(emailVerificationSchema));
 	const resendForm = await superValidate(valibot(resendEmailVerificationSchema));
 
@@ -79,6 +96,6 @@ export const actions = {
 			});
 		}
 
-		return message(form, response);
+		redirect(300, `/auth/email-verification/${response?.data.userId}/${response?.data.token}`);
 	}
 } satisfies Actions;

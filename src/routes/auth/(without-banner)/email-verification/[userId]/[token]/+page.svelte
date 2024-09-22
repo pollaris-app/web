@@ -10,6 +10,7 @@
 	import { Button } from '$components/actions/button';
 	import { LoaderCircle } from 'lucide-svelte';
 	import type { PageData } from './$types';
+	import { AuthCard } from '$components/layout/auth-card';
 
 	interface Props {
 		data: PageData;
@@ -41,33 +42,38 @@
 	});
 </script>
 
-<div>
-	<h1>Email Verification</h1>
-	<p>Enter a code to activate your account</p>
-</div>
+<AuthCard
+	title="Email Verification"
+	description="Check your inbox for further instructions on how to activate your account"
+>
+	<form method="POST" action="?/activate" use:enhance>
+		<Field {form} name="code">
+			<PinInput bind:data={$formData.code} quantity={6} />
+		</Field>
 
-<form method="POST" action="?/activate" use:enhance>
-	<Field {form} name="code">
-		<PinInput bind:data={$formData.code} quantity={6} />
-	</Field>
-
-	<Button>
-		{#if $delayed}
-			<LoaderCircle />
-		{:else}
-			Verify
-		{/if}
-	</Button>
-</form>
-
-<div>
-	<p>Are you facing any problems with receiving the code?</p>
-
-	<form method="POST" action="?/resend" use:resendEnhance>
-		<button>Resend code</button>
+		<Button>
+			{#if $delayed}
+				<LoaderCircle />
+			{:else}
+				Verify
+			{/if}
+		</Button>
 	</form>
 
-	<SuperDebug data={{ $resendFormData, $resendErrors, $resendMessage }} />
-</div>
+	<div>
+		<p>Are you facing any problems with receiving the code?</p>
 
-<SuperDebug data={{ $formData, $errors, $message }} />
+		<form method="POST" action="?/resend" use:resendEnhance>
+			<button>Resend code</button>
+		</form>
+
+		<SuperDebug data={{ $resendFormData, $resendErrors, $resendMessage }} />
+	</div>
+
+	<SuperDebug data={{ $formData, $errors, $message }} />
+
+	{#snippet footer()}
+		<p>Want to signin?</p>
+		<a href="/auth/signin">Signin</a>
+	{/snippet}
+</AuthCard>
