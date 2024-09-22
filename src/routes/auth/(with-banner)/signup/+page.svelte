@@ -34,12 +34,16 @@
 							{
 								label: 'Redirect Now',
 								handler: () => {
-									goto('/auth/email-verification');
+									goto(
+										`/auth/email-verification/${result.data?.form.message.data.userId}/${result.data?.form.message.data.token}`
+									);
 								}
 							}
 						],
 						onClose: () => {
-							goto('/auth/email-verification');
+							goto(
+								`/auth/email-verification/${result.data?.form.message.data.userId}/${result.data?.form.message.data.token}`
+							);
 						}
 					},
 					type: 'foreground',
@@ -76,12 +80,7 @@
 		</Field>
 
 		<Field {form} name="password">
-			<PasswordInput
-				bind:data={$formData.password}
-				scoreBar
-				label="Password"
-				placeholder="Must be at least 8 characters"
-			/>
+			<PasswordInput bind:data={$formData.password} scoreBar label="Password" />
 		</Field>
 
 		<Field {form} name="confirmPassword">

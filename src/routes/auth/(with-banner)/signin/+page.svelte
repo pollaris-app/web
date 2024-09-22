@@ -30,7 +30,7 @@
 <AuthBanner {title} {description} {header}>
 	<form method="POST" use:enhance class="flex flex:col gap:8">
 		<Field {form} name="email">
-			<TextInput bind:data={$formData.email} label="Email" />
+			<TextInput bind:data={$formData.email} label="Email" placeholder="john@doe.com" />
 		</Field>
 
 		<div class="flex flex:col gap:4">
