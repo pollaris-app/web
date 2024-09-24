@@ -7,7 +7,7 @@
 </script>
 
 {#snippet avatar()}
-	<Avatar image={{ src: 'https://i.imgur.com/8tPmy2V.png' }} fallback="TEST" />
+	<Avatar image={{ src: 'https://i.imgur.com/8tPmy2V.png' }} fallback="TEST" size="small" />
 {/snippet}
 
 <header class="flex jc:space-between ai:center h:32">
@@ -15,7 +15,7 @@
 
 	<Dropdown.Root class="mt:auto">
 		{#snippet trigger({ builder })}
-			<Button builders={[builder]} variant="ghost" color="neutral" class="p:0! r:100%!">
+			<Button builders={[builder]} variant="ghost" color="base-300" class="p:0! r:100%!">
 				{@render avatar()}
 			</Button>
 		{/snippet}
