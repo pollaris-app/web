@@ -1,14 +1,15 @@
 <script lang="ts">
 	import { Avatar } from 'bits-ui';
-	import type { AvatarProps } from '.';
+	import { AvatarVariants, type AvatarProps } from '.';
 	import { cn } from '@kurasu/variants';
 
-	let { class: className, image, fallback, ...props }: AvatarProps = $props();
+	let { image, fallback, size, class: className, ...props }: AvatarProps = $props();
 </script>
 
-<Avatar.Root class={cn(className, 'h:32 w:32')} {...props}>
-	<Avatar.Image {...image} class="r:100%" />
-	<Avatar.Fallback class="r:100%">
+<Avatar.Root class={cn(AvatarVariants.forgeClasses({ size }), className)} {...props}>
+	<Avatar.Image {...image} class="r:8" />
+
+	<Avatar.Fallback class="r:8">
 		{fallback}
 	</Avatar.Fallback>
 </Avatar.Root>
