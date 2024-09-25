@@ -18,7 +18,7 @@
 	<div class="flex gap:24">
 		<Sidebar {data} />
 
-		<main class="bg:base-200 w:100% r:16">
+		<main class="flex flex:col gap:16 w:100% r:32">
 			{@render children()}
 		</main>
 	</div>
