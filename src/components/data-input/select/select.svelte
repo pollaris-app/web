@@ -1,31 +1,50 @@
-<script lang="ts" generics="T extends string | number, M extends boolean">
-	import { Select, type Selected } from 'bits-ui';
-	import { type SelectProps } from '.';
+<script lang="ts">
+	import { melt, createSelect, type CreateSelectProps } from '@melt-ui/svelte';
 	import { Control, FieldErrors, Label } from 'formsnap';
-	import { Check, ChevronsUpDown } from 'lucide-svelte';
+
+	import { Separator } from '$components/layout/separator';
+	import { Check } from 'lucide-svelte';
 	import { Icon, type IconProps } from '$components/icon';
+	import type { SelectProps } from '.';
 
-	let { data = $bindable(), values, details, multiple, ...props }: SelectProps<T, M> = $props();
+	let {
+		value = $bindable(['']),
+		options,
+		multiple,
+		placeholder,
+		label,
+		displayErrors
+	}: SelectProps = $props();
 
-	const handlePlaceholder = (placeholder?: string, multiple?: boolean) => {
-		if (placeholder) {
-			return placeholder;
-		}
+	const {
+		elements: { trigger, menu, option, group, groupLabel, label: inputLabel, hiddenInput },
+		states: { selectedLabel, open, selected },
+		helpers: { isSelected }
+	} = createSelect({
+		forceVisible: true,
+		positioning: {
+			placement: 'bottom',
+			fitViewport: true,
+			sameWidth: true
+		},
+		multiple
+	});
 
-		if (multiple) {
-			return 'Select your options';
-		}
+	function isMultiple<T>(selected: T | T[]): selected is T[] {
+		return Array.isArray(selected);
+	}
 
-		return 'Select your option';
-	};
-
-	let selected: Selected<T> | Selected<T>[] | undefined = $state(undefined);
+	const flatOptions = $derived(Object.values(options).flat());
 
 	$effect(() => {
-		if (multiple) {
-			selected = data.map((c) => ({ label: values[c], value: c })) as Selected<T>[];
+		if ($selected) {
+			if (isMultiple($selected)) {
+				value = $selected.map((item) => item.value) as string[];
+			} else {
+				value = [$selected.value] as string[];
+			}
 		} else {
-			selected = { label: values[data[0]], value: data[0] } as Selected<T>;
+			value = [] as string[];
 		}
 	});
 </script>
@@ -37,53 +56,66 @@
 {/snippet}
 
 <Control let:attrs>
-	<Select.Root
-		{multiple}
-		selected={selected as typeof props.selected}
-		onSelectedChange={(selections) => {
-			if (selections) {
-				if (multiple) {
-					data = (selections as Selected<T>[]).map((selection) => selection.value);
-				} else {
-					data = [(selections as Selected<T>).value];
-				}
-			} else {
-				data = [];
-			}
-		}}
+	{#if label}
+		<label for={attrs.name} use:melt={$inputLabel}>{label}</label>
+	{/if}
+
+	{#each flatOptions as option}
+		{@const disabled = option.disabled === true ? option.disabled : !value.includes(option.value)}
+
+		<input name={attrs.name} value={option.value} {disabled} hidden />
+	{/each}
+
+	<button
+		{...attrs}
+		use:melt={$trigger}
+		class="flex ai:center jc:space-between w:256 font:18 py:8 px:12 b:2|solid|base-400 r:16 h:48 color:neutral"
 	>
-		{#each data as color}
-			<input name={attrs.name} hidden value={color} />
-		{/each}
+		{$selectedLabel || placeholder || 'Select an option'}
+	</button>
 
-		<Select.Trigger
-			{...attrs}
-			class="flex ai:center jc:space-between w:256 font:18 py:8 px:12 b:2|solid|base-400 r:16 h:48 color:neutral"
+	{#if $open}
+		<div
+			use:melt={$menu}
+			class="flex flex:col gap:4 w:100% mt:8 p:4 max-w:256 r:16 outline:2|solid|base-400 bg:base-200"
 		>
-			<Select.Value placeholder={handlePlaceholder(props?.placeholder, multiple)} />
-			<ChevronsUpDown size={16} />
-		</Select.Trigger>
+			{#each Object.entries(options) as [value, values], index}
+				<div use:melt={$group} class="flex flex:col gap:8">
+					{#if value !== 'default'}
+						{#if index !== 0}
+							<Separator class="ml:-2 w:calc(100%+8px)!" />
+						{/if}
 
-		<Select.Content class="w:100% mt:8 p:4 max-w:256 r:16 outline:2|solid|base-400 bg:base-200">
-			{#each Object.entries(values) as [value, label]}
-				<Select.Item
-					{value}
-					let:isSelected
-					class="flex gap:8 ai:center jc:start py:8 px:12 r:12 cursor:pointer color:neutral font:medium color:primary:hover bg:base-300:hover"
-				>
-					{#if details && details[value]}
-						{@render indicator(details[value].indicator ?? null)}
+						<span use:melt={$groupLabel(value)} class="fg:primary f:18 f:bold px:12 capitalize">
+							{value}
+						</span>
 					{/if}
 
-					<span>
-						{label}
-					</span>
+					{#each values as { value, label, disabled, details }}
+						<button
+							use:melt={$option({ value, label, disabled })}
+							class="w:100% flex gap:8 ai:center jc:start py:8 px:12 r:12 cursor:pointer color:neutral font:medium color:primary:hover bg:base-300:hover"
+							{...attrs}
+						>
+							{#if details && details.indicator}
+								{@render indicator(details.indicator ?? null)}
+							{/if}
 
-					{#if isSelected}
-						<Check size={16} class="ml:auto" />
-					{/if}
-				</Select.Item>
+							<span>
+								{label}
+							</span>
+
+							{#if $isSelected(value)}
+								<Check size={16} class="ml:auto" />
+							{/if}
+						</button>
+					{/each}
+				</div>
 			{/each}
-		</Select.Content>
-	</Select.Root>
+		</div>
+	{/if}
 </Control>
+
+{#if displayErrors}
+	<FieldErrors class="fg:error mt:4" />
+{/if}

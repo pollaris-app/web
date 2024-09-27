@@ -1,15 +1,24 @@
-import type { SelectProps } from 'bits-ui';
+import type { Details } from '$lib/utils/types/details';
 import Root from './select.svelte';
-import type { IconProps } from '$components/icon';
 
-type Details = Record<string, { indicator?: IconProps }>;
+type OptionLabel = 'default' | string;
 
-type Props<T extends string | number, M extends boolean> = SelectProps<T, M> & {
-	data: T[];
-	values: Record<T, string>;
-	details?: Details;
-	placeholder?: string;
-	multiple?: M;
+type OptionValue = {
+	readonly value: string;
+	readonly label: string;
+	readonly disabled?: boolean;
+	readonly details?: Details;
 };
 
-export { Root as Select, type Props as SelectProps };
+type Options = Record<OptionLabel, readonly OptionValue[]>;
+
+interface Props {
+	value: string[];
+	options: Options;
+	multiple?: boolean;
+	placeholder?: string;
+	label?: string;
+	displayErrors?: boolean;
+}
+
+export { Root as Select, type Props as SelectProps, type Options as SelectOptions };
