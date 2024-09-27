@@ -1,4 +1,4 @@
-import type { SelectOptions } from '$components/data-input/select/melt';
+import type { SelectOptions } from '$components/data-input/select';
 
 interface Choice {
 	value: string;
