@@ -1,27 +1,22 @@
 <script lang="ts">
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
-	import {
-		ACCENTS,
-		ACCENTS_DETAILS,
-		FONT_SIZES,
-		FONT_SIZES_DETAILS,
-		TABLE_VIEWS,
-		THEMES
-	} from '$lib/utils/constants/settings.js';
-	import { SettingsSection } from '$components/layout/settings/section/index.js';
-	import { ImageRadioGroup } from '$components/data-input/image-radio-group/index.js';
+	import { valibotClient, zodClient } from 'sveltekit-superforms/adapters';
+	import { ACCENTS, FONT_SIZES, TABLE_VIEWS, THEMES } from '$lib/utils/constants/settings';
+	import { SettingsSection } from '$components/layout/settings/section';
+	import { ImageRadioGroup } from '$components/data-input/image-radio-group';
 	import { Separator } from '$components/layout/separator';
 	import { Button } from '$components/actions/button';
-	import { appearanceSchema } from '$lib/zod/schemas/index.js';
-	import { Select } from '$components/data-input/select';
+	import { appearanceSchema } from '$lib/zod/schemas';
+	import { Select } from '$components/data-input/select/melt';
 
 	let { data } = $props();
 	const form = superForm(data.form, {
-		validators: zodClient(appearanceSchema)
+		validators: valibotClient(appearanceSchema),
+		delayMs: 500,
+		timeoutMs: 5000
 	});
 
-	const { form: formData, enhance } = form;
+	const { form: formData, errors, message, enhance } = form;
 </script>
 
 <div class="flex flex:col gap:32">
@@ -51,7 +46,7 @@
 			fieldName="accents"
 			legend={{ title: 'Accent Color', description: 'Select your accent color' }}
 		>
-			<Select bind:data={$formData.accents} values={ACCENTS} details={ACCENTS_DETAILS} />
+			<Select bind:value={$formData.accents} options={ACCENTS} />
 		</SettingsSection>
 
 		<SettingsSection
@@ -71,7 +66,7 @@
 			fieldName="fontSize"
 			legend={{ title: 'Font size', description: 'How big is the font of the app' }}
 		>
-			<Select bind:data={$formData.fontSize} values={FONT_SIZES} details={FONT_SIZES_DETAILS} />
+			<Select bind:value={$formData.fontSize} options={FONT_SIZES} />
 		</SettingsSection>
 
 		<Separator />
@@ -81,6 +76,6 @@
 			<Button size="small" class="">Save changes</Button>
 		</div>
 
-		<SuperDebug data={$formData} />
+		<SuperDebug data={{ $formData, $errors, $message }} />
 	</form>
 </div>
