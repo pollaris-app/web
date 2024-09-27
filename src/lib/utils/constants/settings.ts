@@ -1,56 +1,14 @@
-import { type IconProps } from '$components/icon';
+import type { SelectOptions } from '$components/data-input/select/melt';
 
-export const ACCENTS = {
-	blue: 'Blue',
-	red: 'Red',
-	green: 'Green',
-	yellow: 'Yellow'
-} as const;
-
-export type Accent = keyof typeof ACCENTS;
-
-export type AccentDetails = {
-	indicator: IconProps;
-};
-
-export const ACCENTS_DETAILS = {
-	red: {
-		indicator: {
-			name: 'squircle',
-			class: 'fg:red fill:red'
-		}
-	},
-	blue: {
-		indicator: {
-			name: 'squircle',
-			class: 'fg:blue'
-		}
-	},
-	green: {
-		indicator: {
-			name: 'squircle',
-			class: 'fg:green'
-		}
-	},
-	yellow: {
-		indicator: {
-			name: 'squircle',
-			class: 'fg:yellow'
-		}
-	}
-} as Record<Accent, AccentDetails>;
-
-export const FONT_SIZES = {
-	small: 'Small',
-	medium: 'Medium',
-	large: 'Large'
-} as const;
-
-export type FontSize = keyof typeof FONT_SIZES;
-
-export type FontSizeDetails = {};
-
-export const FONT_SIZES_DETAILS = {} as Record<FontSize, FontSizeDetails>;
+interface Choice {
+	value: string;
+	label: string;
+	image: {
+		src: string;
+		alt: string;
+	};
+	description?: string;
+}
 
 interface Theme {
 	value: string;
@@ -111,4 +69,73 @@ export const TABLE_VIEWS = [
 			alt: 'compact-view'
 		}
 	}
-];
+] as Choice[];
+
+export const ACCENTS = {
+	default: [
+		{
+			value: 'red',
+			label: 'Red',
+			disabled: false,
+			details: {
+				indicator: {
+					name: 'squircle',
+					class: 'fg:red fill:red'
+				}
+			}
+		},
+		{
+			value: 'blue',
+			label: 'Blue',
+			disabled: false,
+			details: {
+				indicator: {
+					name: 'squircle',
+					class: 'fg:blue'
+				}
+			}
+		},
+		{
+			value: 'green',
+			label: 'Green',
+			disabled: false,
+			details: {
+				indicator: {
+					name: 'squircle',
+					class: 'fg:green'
+				}
+			}
+		},
+		{
+			value: 'yellow',
+			label: ' Yellow',
+			disabled: false,
+			details: {
+				indicator: {
+					name: 'squircle',
+					class: 'fg:yellow'
+				}
+			}
+		}
+	]
+} as SelectOptions;
+
+export const FONT_SIZES = {
+	default: [
+		{
+			value: 'small',
+			label: 'Small',
+			disabled: false
+		},
+		{
+			value: 'medium',
+			label: 'Medium',
+			disabled: false
+		},
+		{
+			value: 'large',
+			label: 'Large',
+			disabled: false
+		}
+	]
+} as SelectOptions;
