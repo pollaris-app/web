@@ -3,13 +3,13 @@
 	import { Logo } from '$components/data-display/logo';
 	import { cn } from '@kurasu/variants';
 	import { page } from '$app/stores';
-	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import { Button } from '$components/actions/button';
 	import { PAGES, CHOICES, type SidebarProps } from '.';
 	import { ChoiceGroup } from '$components/data-input/choice-group';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { LogOut, Plus, Settings, type Icon as IconType } from 'lucide-svelte';
-	import { createNewDialogSchema } from '$lib/zod/schemas';
+	import { CreateNewDialogSchema } from '$lib/validation/schemas';
 	import { Control, Field, Label, Description, FieldErrors, Fieldset, Legend } from 'formsnap';
 	import * as Dropdown from '$components/actions/dropdown';
 	import { Tooltip } from '$components/data-display/tooltip';
@@ -21,7 +21,7 @@
 	let dialogOpen = $state(false);
 
 	const form = superForm(data.form, {
-		validators: zodClient(createNewDialogSchema)
+		validators: valibotClient(CreateNewDialogSchema)
 	});
 
 	const { form: formData, enhance } = form;

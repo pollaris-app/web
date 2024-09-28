@@ -1,11 +1,11 @@
 import * as v from 'valibot';
 import { EmailVerificationCodeSchema } from './common';
 
-export const emailVerificationSchema = v.object({
+export const EmailVerificationSchema = v.object({
 	token: v.string(),
 	code: EmailVerificationCodeSchema
 });
 
-export const resendEmailVerificationSchema = v.object({
+export const ResendEmailVerificationSchema = v.object({
 	userId: v.number()
 });

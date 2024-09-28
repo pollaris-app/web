@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { signInSchema } from '$lib/zod/schemas/auth/signin';
+	import { SignInSchema } from '$lib/validation/schemas/auth/signin';
 	import { superForm } from 'sveltekit-superforms';
 	import type { PageData } from '../../(with-banner)/signin/$types';
 	import { Field } from 'formsnap';
@@ -18,7 +18,7 @@
 	let { data }: Props = $props();
 
 	const form = superForm(data.form, {
-		validators: valibotClient(signInSchema),
+		validators: valibotClient(SignInSchema),
 		delayMs: 500,
 		timeoutMs: 5000
 	});

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { signUpSchema } from '$lib/zod/schemas/auth/signup';
+	import { SignUpSchema } from '$lib/validation/schemas/auth/signup';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import { Field } from 'formsnap';
@@ -22,7 +22,7 @@
 	let { data }: Props = $props();
 
 	const form = superForm(data.form, {
-		validators: valibotClient(signUpSchema),
+		validators: valibotClient(SignUpSchema),
 		onResult: async ({ result }) => {
 			if (result.type === 'success') {
 				addPopout({

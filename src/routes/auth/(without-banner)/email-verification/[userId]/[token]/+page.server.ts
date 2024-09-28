@@ -1,7 +1,7 @@
 import {
-	emailVerificationSchema,
-	resendEmailVerificationSchema
-} from '$lib/zod/schemas/auth/email-verification';
+	EmailVerificationSchema,
+	ResendEmailVerificationSchema
+} from '$lib/validation/schemas/auth/email-verification';
 import { error, redirect, type Actions } from '@sveltejs/kit';
 import { fail, message, setError, superValidate, type ErrorStatus } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
@@ -24,8 +24,8 @@ export const load = async ({ params }) => {
 		throw error(400, 'Email already verified');
 	}
 
-	const activateForm = await superValidate(valibot(emailVerificationSchema));
-	const resendForm = await superValidate(valibot(resendEmailVerificationSchema));
+	const activateForm = await superValidate(valibot(EmailVerificationSchema));
+	const resendForm = await superValidate(valibot(ResendEmailVerificationSchema));
 
 	return {
 		activateForm,
@@ -35,7 +35,7 @@ export const load = async ({ params }) => {
 
 export const actions = {
 	activate: async ({ request }: { request: Request }) => {
-		const form = await superValidate(request, valibot(emailVerificationSchema));
+		const form = await superValidate(request, valibot(EmailVerificationSchema));
 
 		if (!form.valid) {
 			return fail(400, { form });
@@ -67,7 +67,7 @@ export const actions = {
 		return message(form, response);
 	},
 	resend: async ({ request }: { request: Request }) => {
-		const form = await superValidate(request, valibot(resendEmailVerificationSchema));
+		const form = await superValidate(request, valibot(ResendEmailVerificationSchema));
 
 		if (!form.valid) {
 			return fail(400, { form });

@@ -1,4 +1,4 @@
-import { passwordResetRequestSchema } from '$lib/zod/schemas/auth/password-reset';
+import { passwordResetRequestSchema } from '$lib/validation/schemas/auth/password-reset.js';
 import { fail, message, superValidate } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
 import type { PageServerLoad } from './$types.js';

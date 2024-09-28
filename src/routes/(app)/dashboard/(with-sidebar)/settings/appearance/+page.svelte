@@ -1,12 +1,12 @@
 <script lang="ts">
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
-	import { valibotClient, zodClient } from 'sveltekit-superforms/adapters';
+	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import { ACCENTS, FONT_SIZES, TABLE_VIEWS, THEMES } from '$lib/utils/constants/settings';
 	import { SettingsSection } from '$components/layout/settings/section';
 	import { ImageRadioGroup } from '$components/data-input/image-radio-group';
 	import { Separator } from '$components/layout/separator';
 	import { Button } from '$components/actions/button';
-	import { AppearanceSchema } from '$lib/zod/schemas';
+	import { AppearanceSchema } from '$lib/validation/schemas/index.js';
 	import { Select } from '$components/data-input/select';
 
 	let { data } = $props();

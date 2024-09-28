@@ -5,7 +5,7 @@ const choiceValues = ['poll', 'quiz'] as const;
 
 const TitleSchema = v.pipe(v.string('You must enter a title.'), v.minLength(8), v.maxLength(64));
 
-export const createNewDialogSchema = v.object({
+export const CreateNewDialogSchema = v.object({
 	title: TitleSchema,
 	type: v.optional(v.picklist(choiceValues), 'poll')
 });

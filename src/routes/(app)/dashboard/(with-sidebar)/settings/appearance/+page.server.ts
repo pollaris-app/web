@@ -1,6 +1,6 @@
 import { fail, message, superValidate } from 'sveltekit-superforms';
-import { valibot, zod } from 'sveltekit-superforms/adapters';
-import { AppearanceSchema } from '$lib/zod/schemas';
+import { valibot } from 'sveltekit-superforms/adapters';
+import { AppearanceSchema } from '$lib/validation/schemas';
 
 import type { LayoutServerLoad } from '../../$types';
 

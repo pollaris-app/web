@@ -1,7 +1,7 @@
 import * as v from 'valibot';
 import { EmailSchema, StrictPasswordSchema } from './common';
 
-export const passwordResetSchema = v.pipe(
+export const PasswordResetSchema = v.pipe(
 	v.object({
 		userId: v.number(),
 		token: v.string(),

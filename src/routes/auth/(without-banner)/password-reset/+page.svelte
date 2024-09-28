@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { passwordResetRequestSchema } from '$lib/zod/schemas/auth/password-reset';
+	import { passwordResetRequestSchema } from '$lib/validation/schemas/auth/password-reset';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import type { PageData } from './$types';

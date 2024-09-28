@@ -1,7 +1,7 @@
 import * as v from 'valibot';
 import { EmailSchema, StrictPasswordSchema } from './common';
 
-export const signUpSchema = v.pipe(
+export const SignUpSchema = v.pipe(
 	v.object({
 		email: EmailSchema,
 		password: StrictPasswordSchema,

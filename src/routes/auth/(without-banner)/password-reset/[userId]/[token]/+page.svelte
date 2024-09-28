@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { passwordResetSchema } from '$lib/zod/schemas/auth/password-reset';
+	import { PasswordResetSchema } from '$lib/validation/schemas/auth/password-reset';
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import { Field } from 'formsnap';
@@ -16,7 +16,7 @@
 	let { data }: Props = $props();
 
 	const form = superForm(data.form, {
-		validators: valibotClient(passwordResetSchema),
+		validators: valibotClient(PasswordResetSchema),
 		onSubmit: ({ formData }) => {
 			formData.set('userId', data.userId);
 			formData.set('token', data.token);

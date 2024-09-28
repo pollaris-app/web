@@ -4,9 +4,9 @@
 	import SuperDebug, { superForm } from 'sveltekit-superforms';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import {
-		emailVerificationSchema,
-		resendEmailVerificationSchema
-	} from '$lib/zod/schemas/auth/email-verification';
+		EmailVerificationSchema,
+		ResendEmailVerificationSchema
+	} from '$lib/validation/schemas/auth/email-verification';
 	import { Button } from '$components/actions/button';
 	import { LoaderCircle } from 'lucide-svelte';
 	import type { PageData } from './$types';
@@ -19,7 +19,7 @@
 	let { data }: Props = $props();
 
 	const form = superForm(data.activateForm, {
-		validators: valibotClient(emailVerificationSchema),
+		validators: valibotClient(EmailVerificationSchema),
 		onSubmit: ({ formData }) => {
 			formData.set('token', data.token);
 		},
@@ -35,7 +35,7 @@
 		errors: resendErrors,
 		message: resendMessage
 	} = superForm(data.resendForm, {
-		validators: valibotClient(resendEmailVerificationSchema),
+		validators: valibotClient(ResendEmailVerificationSchema),
 		onSubmit: ({ formData }) => {
 			formData.set('userId', data.userId);
 		}
