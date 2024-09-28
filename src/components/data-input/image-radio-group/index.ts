@@ -1,7 +1,7 @@
-import type { RadioGroupProps } from 'bits-ui';
 import Root from './image-radio-group.svelte';
 import { Variants, type VariantsType } from '@kurasu/variants';
-import type { Choice } from '$lib/utils/types/choices';
+import { type Choice } from '$lib/utils/constants/settings';
+import type { RadioGroupProps } from 'bits-ui';
 
 const indicatorVariants = new Variants({
 	base: 'flex ai:center jc:center w:24 h:24 bg:primary fg:secondary b:1|solid|base-300/.15 r:100% abs',

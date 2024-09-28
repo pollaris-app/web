@@ -1,6 +1,6 @@
 import type { SelectOptions } from '$components/data-input/select';
 
-interface Choice {
+export interface Choice {
 	value: string;
 	label: string;
 	image: {
@@ -10,7 +10,7 @@ interface Choice {
 	description?: string;
 }
 
-interface Theme {
+export interface Theme {
 	value: string;
 	label: string;
 	image: {

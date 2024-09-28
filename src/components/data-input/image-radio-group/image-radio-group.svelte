@@ -4,7 +4,7 @@
 	import { Control, Description, Label } from 'formsnap';
 	import { Check } from 'lucide-svelte';
 	import { cn } from '@kurasu/variants';
-	import { type Choice } from '$lib/utils/types/choices';
+	import { type Choice } from '$lib/utils/constants/settings';
 
 	let { value = $bindable(), choices, indicator, ...props }: ImageRadioGroupProps<T> = $props();
 </script>
