@@ -6,12 +6,12 @@
 	import { ImageRadioGroup } from '$components/data-input/image-radio-group';
 	import { Separator } from '$components/layout/separator';
 	import { Button } from '$components/actions/button';
-	import { appearanceSchema } from '$lib/zod/schemas';
-	import { Select } from '$components/data-input/select/melt';
+	import { AppearanceSchema } from '$lib/zod/schemas';
+	import { Select } from '$components/data-input/select';
 
 	let { data } = $props();
 	const form = superForm(data.form, {
-		validators: valibotClient(appearanceSchema),
+		validators: valibotClient(AppearanceSchema),
 		delayMs: 500,
 		timeoutMs: 5000
 	});

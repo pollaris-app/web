@@ -32,7 +32,7 @@ const FontSizeSchema = v.pipe(
 	v.length(1, 'You must select a font size.')
 );
 
-export const appearanceSchema = v.object({
+export const AppearanceSchema = v.object({
 	accents: AccentsSchema,
 	fontSize: FontSizeSchema,
 	theme: v.picklist(themeValues),
