@@ -10,7 +10,7 @@
 	<Avatar image={{ src: 'https://i.imgur.com/8tPmy2V.png' }} fallback="TEST" size="small" />
 {/snippet}
 
-<header class="flex jc:space-between ai:center h:32">
+<header class="sticky top:0 p:16 flex jc:space-between ai:center h:64 bg:base-100 z:50">
 	<Logo variant="full" />
 
 	<Dropdown.Root class="mt:auto">

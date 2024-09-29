@@ -7,7 +7,7 @@
 	let pathname = $derived($page.url.pathname);
 </script>
 
-<nav class="flex flex:col gap-y:16 bg:base-200 max-w:256 py:24">
+<nav class="flex flex:col gap-y:16 bg:base-200 max-w:256 h:calc(100dvh-80) p:16 r:24 sticky top:64">
 	<h2 class="color:white font:bold font:24">Settings</h2>
 
 	<label for="search" class="rel">

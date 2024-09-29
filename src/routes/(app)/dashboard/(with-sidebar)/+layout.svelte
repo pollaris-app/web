@@ -12,10 +12,10 @@
 	let { children, data }: DashboardLayoutProps = $props();
 </script>
 
-<div class="bg:base-100 min-h:100dvh flex flex:col gap:16 p:16">
+<div class="bg:base-100 min-h:100dvh flex flex:col gap:16">
 	<Header />
 
-	<div class="flex gap:24">
+	<div class="flex">
 		<Sidebar {data} />
 
 		<main class="flex flex:col gap:16 w:100% r:32">
