@@ -6,7 +6,7 @@
 	let {}: NewFeedPostProps = $props();
 </script>
 
-<div class="bg:base-300 r:24 p:16 flex ai:start gap:16 w:100%">
+<div class="bg:base-300 r:24 p:16 flex ai:start gap:16 w:100% max-w:576px">
 	<Avatar image={{ src: '/me.jpg' }} fallback="Test" />
 
 	<div class="flex flex:col gap:16 w:100%">

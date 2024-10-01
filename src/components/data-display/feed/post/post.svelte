@@ -10,7 +10,7 @@
 	let { content }: FeedPostProps = $props();
 </script>
 
-<div class="flex flex:col bg:base-300 p:16 r:24 gap:16 w:100% h:max-content">
+<div class="flex flex:col bg:base-300 p:16 r:24 gap:16 w:100% h:max-content max-w:576px">
 	<header class="flex jc:space-between">
 		<Op
 			user={{
