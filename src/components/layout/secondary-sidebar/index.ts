@@ -1,4 +1,4 @@
-import Root from './sidebar-settings.svelte';
+import Root from './secondary-sidebar.svelte';
 
 const CONTENT = [
 	{
@@ -53,4 +53,4 @@ const CONTENT = [
 
 interface Props {}
 
-export { Root as SidebarSettings, CONTENT, type Props as SidebarSettingsProps };
+export { Root as SidebarSettings, CONTENT, type Props as SecondarySidebarProps };

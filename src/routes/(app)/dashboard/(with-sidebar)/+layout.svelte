@@ -3,6 +3,7 @@
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 	import { Header } from '$components/layout/header';
+	import SecondarySidebar from '$components/layout/secondary-sidebar/secondary-sidebar.svelte';
 
 	interface DashboardLayoutProps {
 		children: Snippet;
@@ -17,6 +18,7 @@
 
 	<div class="flex">
 		<Sidebar {data} />
+		<SecondarySidebar />
 
 		<main class="flex flex:col gap:16 w:100% r:32">
 			{@render children()}
