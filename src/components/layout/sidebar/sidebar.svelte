@@ -39,7 +39,7 @@
 			{#snippet trigger({ builder: dialogBuilder })}
 				<Tooltip openDelay={0} content={{ side: 'right', sideOffset: 8 }}>
 					{#snippet trigger({ builder: tooltipBuilder })}
-						<Button builders={[tooltipBuilder, dialogBuilder]} class="h:52">
+						<Button builders={[tooltipBuilder, dialogBuilder]} class="h:52 w:52">
 							<Plus size={20} />
 						</Button>
 					{/snippet}
